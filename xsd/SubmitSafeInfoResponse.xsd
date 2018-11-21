@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sama.gov.sa/fiportal/SubmitSafeInfoResponse.xsd" xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" targetNamespace="http://www.sama.gov.sa/fiportal/SubmitSafeInfoResponse.xsd" elementFormDefault="qualified" xmlns:Q1="http://www.sama.bea.sa/common/PortalLib" xmlns:Q2="http://www.sama.bea.sa/inquiry/common/InquiryLibrary/PortalInquiryLib">
+    <xsd:import schemaLocation="../../../common/PortalInquiryLib.xsd" namespace="http://www.sama.bea.sa/inquiry/common/InquiryLibrary/PortalInquiryLib"></xsd:import>
+    <xsd:import schemaLocation="../../../common/PortalLib.xsd" namespace="http://www.sama.bea.sa/common/PortalLib"></xsd:import>
+    <xsd:element name="SubmitSafeInfoResponseRq" type="SubmitSafeInfoResponseRqType" ibmSchExtn:docRoot="true"/>
+	<xsd:element name="SubmitSafeInfoResponseRs" type="SubmitSafeInfoResponseRsType" ibmSchExtn:docRoot="true"/>
+	<xsd:complexType name="SubmitSafeInfoResponseRqType">
+		<xsd:sequence>
+			<xsd:element name="SubmitSafeInfoResponseInput" type="SubmitSafeInfoResponseInputType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SubmitSafeInfoResponseRsType">
+		<xsd:sequence>
+			<xsd:element name="SubmitSafeInfoResponseOutput" type="SubmitSafeInfoResponseOutputType" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SubmitSafeInfoResponseOutputType">
+		<xsd:sequence>
+			<xsd:element name="status_code">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string"/>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="status_message">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string"/>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SubmitSafeInfoResponseInputType">
+		<xsd:sequence>
+			<xsd:element name="WorkflowTaskInfo" type="Q1:WorkflowTaskInfo" maxOccurs="1" minOccurs="1">
+
+			</xsd:element>
+			<xsd:element name="SafeInfoResponse" type="Q2:SafeInfoResponseType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+</xsd:schema>

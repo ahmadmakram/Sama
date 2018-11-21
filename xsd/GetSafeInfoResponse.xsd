@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sama.gov.sa/fiportal/GetSafeInfoResponse.xsd" xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" targetNamespace="http://www.sama.gov.sa/fiportal/GetSafeInfoResponse.xsd" elementFormDefault="qualified" xmlns:Q1="http://www.sama.bea.sa/common/PortalLib" xmlns:Q2="http://www.sama.bea.sa/inquiry/common/InquiryLibrary/PortalInquiryLib">
+    <xsd:import schemaLocation="../../../common/PortalInquiryLib.xsd" namespace="http://www.sama.bea.sa/inquiry/common/InquiryLibrary/PortalInquiryLib"></xsd:import>
+    <xsd:import schemaLocation="../../../common/PortalLib.xsd" namespace="http://www.sama.bea.sa/common/PortalLib"></xsd:import>
+    <xsd:element name="GetSafeInfoResponseRq" type="GetSafeInfoResponseRqType" ibmSchExtn:docRoot="true"/>
+	<xsd:element name="GetSafeInfoResponseRs" type="GetSafeInfoResponseRsType" ibmSchExtn:docRoot="true"/>
+	<xsd:complexType name="GetSafeInfoResponseRqType">
+		<xsd:sequence>
+			<xsd:element name="GetSafeInfoResponseInput" type="GetSafeInfoResponseInputType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GetSafeInfoResponseRsType">
+		<xsd:sequence>
+			<xsd:element name="GetSafeInfoResponseOutput" type="GetSafeInfoResponseOutputType" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GetSafeInfoResponseOutputType">
+		<xsd:sequence>
+			<xsd:element name="WorkflowTaskInfo" type="Q1:WorkflowTaskInfo" maxOccurs="1" minOccurs="1"></xsd:element>
+			<xsd:sequence>
+				<xsd:element name="SafeInfoResponse" type="Q2:SafeInfoResponseType" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GetSafeInfoResponseInputType">
+		<xsd:sequence>
+			<xsd:element name="task_id">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:int"/>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+</xsd:schema>

@@ -1,0 +1,573 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema
+	targetNamespace="http://www.sama.bea.sa/inquiry/common/InquiryLibrary/PortalInquiryLib"
+	elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:base="http://www.sama.bea.sa/common/BaseLib"
+	xmlns:p-gi-lib="http://www.sama.bea.sa/inquiry/common/InquiryLibrary/PortalInquiryLib"
+	>
+	<!-- xmlns:gi-lib="http://www.sama.bea.sa/inquiry/common/GeneralInquiryLib" -->
+	
+	
+
+	<!-- <import schemaLocation="GILib.xsd"
+		namespace="http://www.sama.bea.sa/inquiry/common/GeneralInquiryLib"></import> -->
+	<import schemaLocation="BaseLib.xsd" namespace="http://www.sama.bea.sa/common/BaseLib">
+	</import>
+
+
+<complexType name="AccountInfoResponseType">
+		<sequence>
+
+
+			<element name="account_no">
+				<simpleType>
+					<restriction base="string">
+						<minLength value="4" />
+						<maxLength value="24" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="iban" minOccurs="0">
+				<simpleType>
+					<restriction base="string">
+						<length value="24" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="account_type">
+				<simpleType>
+					<restriction base="string">
+						<minLength value="1" />
+						<maxLength value="20" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="currency" minOccurs="0">
+				<simpleType>
+					<restriction base="string">
+						<pattern value="[A-Z]{3}" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="account_status" minOccurs="0">
+				<simpleType>
+					<restriction base="string">
+						<enumeration value="01" />
+						<enumeration value="02" />
+						<enumeration value="03" />
+						<enumeration value="04" />
+						<enumeration value="05" />
+						<enumeration value="06" />
+						<enumeration value="07" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="institution" minOccurs="0">
+				<simpleType>
+					<restriction base="string">
+						<minLength value="2" />
+						<maxLength value="100" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="account_opening_date" minOccurs="0">
+				<simpleType>
+					<restriction base="dateTime" />
+				</simpleType>
+			</element>
+			<element name="account_closing_date" minOccurs="0">
+				<simpleType>
+					<restriction base="dateTime" />
+				</simpleType>
+			</element>
+			<element name="available_balance" minOccurs="0"
+				maxOccurs="1">
+				<simpleType>
+					<restriction base="decimal">
+						<minExclusive value="-99999999999999999999" />
+						<maxExclusive value="99999999999999999999" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="total_balance" minOccurs="0"
+				maxOccurs="1">
+				<simpleType>
+					<restriction base="decimal">
+						<minExclusive value="-99999999999999999999" />
+						<maxExclusive value="99999999999999999999" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="balance_date" minOccurs="0" maxOccurs="1">
+				<simpleType>
+					<restriction base="dateTime" />
+				</simpleType>
+			</element>
+			<element name="is_joint_account">
+				<simpleType>
+					<restriction base="string">
+						<length value="1" />
+						<pattern value="[YNyn]{1}" />
+					</restriction>
+				</simpleType>
+			</element>
+
+			<element name="UserInfoResponse" type="p-gi-lib:UserInfoResponseType"
+				maxOccurs="unbounded" />
+			<element name="ReservationInfoResponse" type="p-gi-lib:ReservationInfoResponseType"
+				minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+	<complexType name="AccountInfoType">
+		<sequence>
+		    <element name="account_no" type="base:T_AccountNumber" minOccurs="1" maxOccurs="1"/>
+			<element name="iban" type="boolean" minOccurs="1" maxOccurs="1"/>	
+		</sequence>
+	</complexType>
+	
+	<complexType name="DepositeInfoType">
+		<sequence>
+			<element name="deposite_no" maxOccurs="1" minOccurs="0">
+				<simpleType>
+					<restriction base="base:T_NSPC_Text">
+						<minLength value="1" />
+                        <maxLength value="30" />
+					</restriction>
+				</simpleType>
+			</element>
+		</sequence>
+	</complexType>
+	
+	<complexType name="LiabilityInfoType">
+		<sequence>
+			<element name="id">
+				<simpleType>
+					<restriction base="int"/>
+				</simpleType>
+			</element>
+		</sequence>
+	</complexType>
+	
+	
+	
+	<complexType name="BalanceInfoResponseType">
+		<sequence>
+		<element name="account_no">
+				<simpleType>
+					<restriction base="string">
+						<minLength value="4" />
+						<maxLength value="24" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="iban" minOccurs="0">
+				<simpleType>
+					<restriction base="string">
+						<length value="24" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="account_type">
+				<simpleType>
+					<restriction base="string">
+						<minLength value="1" />
+						<maxLength value="20" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="currency" minOccurs="0">
+				<simpleType>
+					<restriction base="string">
+						<pattern value="[A-Z]{3}" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="account_status" minOccurs="0">
+				<simpleType>
+					<restriction base="string">
+						<enumeration value="01" />
+						<enumeration value="02" />
+						<enumeration value="03" />
+						<enumeration value="04" />
+						<enumeration value="05" />
+						<enumeration value="06" />
+						<enumeration value="07" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="institution" minOccurs="0">
+				<simpleType>
+					<restriction base="string">
+						<minLength value="2" />
+						<maxLength value="100" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="account_opening_date" minOccurs="0">
+				<simpleType>
+					<restriction base="dateTime" />
+				</simpleType>
+			</element>
+			<element name="account_closing_date" minOccurs="0">
+				<simpleType>
+					<restriction base="dateTime" />
+				</simpleType>
+			</element>
+			<element name="available_balance" minOccurs="0">
+				<simpleType>
+					<restriction base="decimal">
+						<minExclusive value="-99999999999999999999" />
+						<maxExclusive value="99999999999999999999" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="total_balance" minOccurs="0">
+				<simpleType>
+					<restriction base="decimal">
+						<minExclusive value="-99999999999999999999" />
+						<maxExclusive value="99999999999999999999" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="balance_date" minOccurs="0">
+				<simpleType>
+					<restriction base="dateTime" />
+				</simpleType>
+			</element>
+			<element name="is_joint_account">
+				<simpleType>
+					<restriction base="string">
+						<length value="1" />
+						<pattern value="[YNyn]{1}" />
+					</restriction>
+				</simpleType>
+			</element>
+
+			<element name="UserInfoResponse"
+				type="p-gi-lib:UserInfoResponseType" maxOccurs="unbounded" />
+			<element name="ReservationInfoResponse"
+				type="p-gi-lib:ReservationInfoResponseType" minOccurs="0"
+				maxOccurs="unbounded" />
+
+		</sequence>
+	</complexType>
+
+	
+	
+	<complexType name="SafeInfoType">
+		<sequence>
+			<element name="box_no" maxOccurs="1" minOccurs="0" >
+				<simpleType>
+					<restriction base="base:T_NSPC_Text">
+						<minLength value="1" />
+                        <maxLength value="30" />
+					</restriction>
+				</simpleType>
+			</element>
+			
+			<element name="safe_branch">
+				<simpleType>
+					<restriction base="string"/>
+				</simpleType>
+			</element>
+	
+		</sequence>
+	</complexType>
+
+	<complexType name="ReservationInfoResponseType">
+		<sequence>
+
+			<element name="reserved_amount" minOccurs="1"
+				maxOccurs="1">
+				<simpleType>
+					<restriction base="decimal" />
+				</simpleType>
+			</element>
+			<element name="reserved_by" minOccurs="1" maxOccurs="1">
+				<simpleType>
+					<restriction base="string">
+						<minLength value="2" />
+						<maxLength value="100" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="RRN" minOccurs="1" maxOccurs="1">
+				<simpleType>
+					<restriction base="string">
+						<minLength value="2" />
+						<maxLength value="30" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="currency" minOccurs="0">
+				<simpleType>
+					<restriction base="string">
+						<pattern value="[A-Z]{3}" />
+					</restriction>
+				</simpleType>
+			</element>
+
+		</sequence>
+	</complexType>
+	
+<complexType name="ShareInfoResponseType">
+		<sequence>
+
+			<element name="company_name">
+				<simpleType>
+					<restriction base="string">
+						<minLength value="2"/>
+						<maxLength value="100"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="share_percentage">
+				<simpleType>
+					<restriction base="decimal">
+						<totalDigits value="9"/>
+						<fractionDigits value="6"/>
+						<maxInclusive value="100.00"/>
+						<minInclusive value="00.000001"/>
+					</restriction>
+				</simpleType>
+			</element>
+
+		</sequence>
+	</complexType>
+	<complexType name="UserInfoResponseType">
+		<sequence>
+
+			<element name="user_id" minOccurs="1" maxOccurs="1">
+				<simpleType>
+					<restriction base="string">
+						<minLength value="4"/>
+						<maxLength value="20"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="id_type" minOccurs="1" maxOccurs="1">
+				<simpleType>
+					<restriction base="string">
+						<minLength value="2"/>
+						<maxLength value="10"/>
+						<pattern value="[^!@#$%?*(){}+=_|&lt;&gt;]+"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="name" minOccurs="1" maxOccurs="1">
+				<simpleType>
+					<restriction base="string">
+						<minLength value="2"/>
+						<maxLength value="100"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="user_type" minOccurs="1" maxOccurs="1">
+				<simpleType>
+					<restriction base="string">
+						<enumeration value="01"/>
+						<enumeration value="02"/>
+						<enumeration value="03"/>
+					</restriction>
+				</simpleType>
+			</element>
+
+		</sequence>
+	</complexType>
+
+	<complexType name="DepositeInfoResponseType">
+		<sequence>
+
+
+			<element name="deposit_no">
+				<simpleType>
+					<restriction base="string">
+						<minLength value="1"/>
+						<maxLength value="30"/>
+						<pattern value="[^!@#$%?*(){}+=_|&lt;&gt;]+"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="deposit_type">
+				<simpleType>
+					<restriction base="string">
+						<minLength value="1"/>
+						<maxLength value="20"/>
+						<pattern value="[^!@#$%?*(){}+=_|&lt;&gt;]+"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="currency" minOccurs="0">
+				<simpleType>
+					<restriction base="string">
+						<length value="3"/>
+						<pattern value="[A-Z]{3}"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="deposit_status" minOccurs="0">
+				<simpleType>
+					<restriction base="string">
+						<minLength value="1"/>
+						<maxLength value="20"/>
+						<pattern value="[^!@#$%?*(){}+=_|&lt;&gt;]+"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="start_date" minOccurs="0">
+				<simpleType>
+					<restriction base="dateTime"/>
+				</simpleType>
+			</element>
+			<element name="due_date" minOccurs="0">
+				<simpleType>
+					<restriction base="dateTime"/>
+				</simpleType>
+			</element>
+			<element name="deposit_balance" minOccurs="0">
+				<simpleType>
+					<restriction base="decimal">
+						<minExclusive value="-99999999999999999999"/>
+						<maxExclusive value="99999999999999999999"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="is_joint_deposit">
+				<simpleType>
+					<restriction base="string">
+						<length value="1"/>
+						<pattern value="[YNyn]{1}"/>
+					</restriction>
+				</simpleType>
+			</element>			
+			<element name="UserInfoResponse" type="p-gi-lib:UserInfoResponseType" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+	
+	<complexType name="LiabilitiesInfoResponseType">
+		<sequence>
+			<element name="account_no" minOccurs="0">
+				<simpleType>
+					<restriction base="string">
+						<minLength value="4" />
+						<maxLength value="24" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="iban" minOccurs="0">
+				<simpleType>
+					<restriction base="string">
+						<length value="24" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="liability_type">
+				<simpleType>
+					<restriction base="string">
+						<minLength value="1" />
+						<maxLength value="30" />
+						<pattern value="[^!@#$%?*(){}+=_|&lt;&gt;]+" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="currency">
+				<simpleType>
+					<restriction base="string">
+						<length value="3" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="number_of_installements" minOccurs="0">
+				<simpleType>
+					<restriction base="int" />
+				</simpleType>
+			</element>
+			<element name="installment_rep_interval" minOccurs="0">
+				<simpleType>
+					<restriction base="string">
+						<enumeration value="01" />
+						<enumeration value="02" />
+						<enumeration value="03" />
+						<enumeration value="04" />
+						<enumeration value="05" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="installment_amount" minOccurs="0">
+				<simpleType>
+					<restriction base="decimal">
+						<minExclusive value="-99999999999999999999" />
+						<maxExclusive value="99999999999999999999" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="last_payment_date" minOccurs="0">
+				<simpleType>
+					<restriction base="dateTime" />
+				</simpleType>
+			</element>
+			<element name="liability_due_date">
+				<simpleType>
+					<restriction base="dateTime" />
+				</simpleType>
+			</element>
+			<element name="total_liability_amount">
+				<simpleType>
+					<restriction base="decimal">
+						<minExclusive value="-99999999999999999999" />
+						<maxExclusive value="99999999999999999999" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="remaining_liability">
+				<simpleType>
+					<restriction base="decimal">
+						<minExclusive value="-99999999999999999999" />
+						<maxExclusive value="99999999999999999999" />
+					</restriction>
+				</simpleType>
+			</element>
+
+
+			<element name="UserInfoResponse" type="p-gi-lib:UserInfoResponseType"
+				maxOccurs="unbounded" minOccurs="1"></element>
+		</sequence>
+	</complexType>
+
+<complexType name="SafeInfoResponseType">
+		<sequence>
+			<element name="safe_branch" minOccurs="0">
+				<simpleType>
+					<restriction base="string">
+						<minLength value="1"/>
+						<maxLength value="200"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="box_no">
+				<simpleType>
+					<restriction base="string">
+						<minLength value="1"/>
+						<maxLength value="30"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="box_open_date" minOccurs="0">
+				<simpleType>
+					<restriction base="dateTime"/>
+				</simpleType>
+			</element>
+			<element name="is_joint_safe">
+				<simpleType>
+					<restriction base="string">
+						<length value="1"/>
+						<pattern value="[YNyn]{1}"/>
+					</restriction>
+				</simpleType>
+			</element>			
+			<element name="UserInfoResponse" type="p-gi-lib:UserInfoResponseType" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+	
+</schema>

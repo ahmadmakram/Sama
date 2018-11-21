@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by () -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns="http://www.sama.gov.sa/fiportal/GetLiabilitiesInfoResponse.xsd"
+	xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions"
+	targetNamespace="http://www.sama.gov.sa/fiportal/GetLiabilitiesInfoResponse.xsd"
+	elementFormDefault="qualified" xmlns:Q1="http://www.sama.bea.sa/common/BaseLib" xmlns:Q2="http://www.sama.bea.sa/common/PortalLib" xmlns:Q3="http://www.sama.bea.sa/inquiry/common/InquiryLibrary/PortalInquiryLib">
+	
+    <xsd:import schemaLocation="../../../common/PortalInquiryLib.xsd" namespace="http://www.sama.bea.sa/inquiry/common/InquiryLibrary/PortalInquiryLib"></xsd:import>
+    <xsd:import schemaLocation="../../../common/PortalLib.xsd" namespace="http://www.sama.bea.sa/common/PortalLib"></xsd:import>
+    <xsd:element name="GetLiabilitiesInfoResponseRq" type="GetLiabilitiesInfoResponseRqType"
+		ibmSchExtn:docRoot="true" />
+	<xsd:element name="GetLiabilitiesInfoResponseRs" type="GetLiabilitiesInfoResponseRsType"
+		ibmSchExtn:docRoot="true" />
+	<xsd:complexType name="GetLiabilitiesInfoResponseRqType">
+		<xsd:sequence>
+			<xsd:element name="GetLiabilitiesInfoResponseInput" type="GetLiabilitiesInfoResponseInputType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GetLiabilitiesInfoResponseRsType">
+		<xsd:sequence>
+			<xsd:element name="GetLiabilitiesInfoResponseOutput"
+				type="GetLiabilitiesInfoResponseOutputType" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GetLiabilitiesInfoResponseOutputType">
+		<xsd:sequence>
+			<xsd:element name="WorkflowTaskInfo" type="Q2:WorkflowTaskInfo" maxOccurs="1" minOccurs="1"></xsd:element>
+			<xsd:sequence>
+				<xsd:element name="LiabilitiesInfoResponse" type="Q3:LiabilitiesInfoResponseType"
+					minOccurs="0" maxOccurs="unbounded" />
+			</xsd:sequence>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GetLiabilitiesInfoResponseInputType">
+		<xsd:sequence>
+			<xsd:element name="task_id">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:int" />
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+</xsd:schema>
