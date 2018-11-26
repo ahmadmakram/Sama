@@ -1,10 +1,16 @@
 
+
+--------------------------- run as WCR --------------------
+GRANT select ON WCR.LOOKUP_VALUES to FIPORTAL;
+
+----------------------------------- run as FIPORTAL  -----------------------------------------------
+----------------------------------------------------------------------------------------------
 ALTER TABLE FIPORTAL.WORKFLOW_TASK RENAME  COLUMN  LAST_ASSIGNED_TO to EXECUTED_BY
 ALTER TABLE FIPORTAL.WORKFLOW_TASK ADD (MODIFICATION_DATE TIMESTAMP(6));
-ALTER TABLE "FIPORTAL"."WORKFLOW_TASK" ADD (NOTES VARCHAR2(800) );
+ALTER TABLE FIPORTAL.WORKFLOW_TASK ADD (NOTES VARCHAR2(800) );
 
 
-GRANT select ON WCR.LOOKUP_VALUES to FIPORTAL;
+
 
 
  GRANT select ON fiportal.audit_log_portal to WCR;
@@ -26,7 +32,7 @@ BEGIN
 
 --------------------------   TASK_DETAILS_VIEW      ----------------------
 
- CREATE OR REPLACE VIEW "FIPORTAL"."TANFEETH_TASK_DETAILS_VIEW" (
+ CREATE OR REPLACE FORCE EDITIONABLE VIEW "FIPORTAL"."TANFEETH_TASK_DETAILS_VIEW" (
     "TASK_ID",
     "TASK_REQUEST_METADATA_ID",
     "FI_ID",
@@ -85,7 +91,7 @@ BEGIN
         fiportal.workflow_task.approved_date_time,
         fiportal.workflow_task.request_metadata_id AS request_metadata_id,
         tanfeeth.agcy_srvc_reqst.reqstr_cd AS entity_gov_id,
-        tanfeeth.agcy_srvc_reqst.fi_codes,
+        fiportal.workflow_task.fi_id,
         tanfeeth.agcy_srvc_reqst.process_type_cd AS main_service_type_code,
         tanfeeth.agcy_srvc_reqst.bus_srvc_cd,
         tanfeeth.agcy_srvc_reqst.reqstr_person_name,
