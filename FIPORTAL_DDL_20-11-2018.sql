@@ -12,7 +12,6 @@ ALTER TABLE FIPORTAL.WORKFLOW_TASK ADD (NOTES VARCHAR2(800) );
 
 
 
-
  GRANT select ON fiportal.audit_log_portal to WCR;
  GRANT insert ON fiportal.audit_log_portal to WCR;
  GRANT select ON fiportal.audit_seq to WCR;
@@ -126,7 +125,7 @@ BEGIN
 		
 -------------------------- TASK_BULK_VIEW ----------------------------
 
- CREATE OR REPLACE VIEW "FIPORTAL"."TASK_BULK_VIEW" (
+ CREATE OR REPLACE FORCE EDITIONABLE VIEW "FIPORTAL"."TASK_BULK_VIEW" (
     "TASK_ID",
     "REQUEST_METADATA_ID",
     "FI_ID",
@@ -151,10 +150,10 @@ BEGIN
         fiportal.workflow_task.request_metadata_id,
         fiportal.workflow_task.fi_id,
         tanfeeth.agcy_srvc_reqst.srvc_reqst_cor_rn,
-        tanfeeth.agcy_srvc_reqst.bus_srvc_cd,
+        fiportal.get_lookup_name_ar(32,tanfeeth.agcy_srvc_reqst.bus_srvc_cd) AS bus_srvc_cd,
         tanfeeth.involved_party.full_name AS involved_entity_name,
         tanfeeth.involved_party.id_no AS involved_entity_id_no,
-        tanfeeth.involved_party.id_type_cd AS id_type,
+        fiportal.get_lookup_name_ar(2,tanfeeth.involved_party.id_type_cd) AS id_type,
         fiportal.get_lookup_name_ar(13,tanfeeth.agcy_srvc_reqst.reqstr_cd) AS entity_gov_name,
         tanfeeth.agcy_srvc_reqst.reqst_recv_time AS request_created_date_time,
         fiportal.workflow_task.status_id,
@@ -279,12 +278,34 @@ END
 
 ---------------------------------------GI services update------------------------------------
 
+
+
+DELETE FROM WORKFLOW_STATUS_EVENT_HISTORY; 
+DELETE FROM WORKFLOW_TASK;  
+
+DELETE FROM BALANCE_INFO_USER ;
+DELETE FROM BALANCE_INFO_SHERINFO;
+DELETE FROM BALANCE_INFO_RESERVE ;
+DELETE FROM ACCOUNT_INFO_USER ; 
+DELETE FROM ACCOUNT_INFO_RESERVE;
+DELETE FROM DEPOSIT_INFO_USER;
+DELETE FROM LIABILITY_INFO_USER;
+DELETE FROM SAFE_INFO_USER;
+
+DELETE FROM ACCOUNT_BALANCE_INFO_RESPONSE;
+DELETE FROM ACCOUNT_INFO_RESPONSE;
+DELETE FROM DEPOSIT_INFO_RESPONSE;
+DELETE FROM LIABILITY_INFO_RESPONSE;
+DELETE FROM SAFE_INFO_RESPONSE;
+---------------------------------------------------------------------------------
+
 ALTER TABLE  "FIPORTAL"."ACCOUNT_BALANCE_INFO_RESPONSE" DROP CONSTRAINT ACC_BAL_INFO_RESPONSE;
 ALTER TABLE  "FIPORTAL"."SHARE_INFO_RESPONSE" DROP CONSTRAINT SHARE_INFO_RESP;
 ALTER TABLE  "FIPORTAL"."ACCOUNT_INFO_RESPONSE" DROP CONSTRAINT ACC_INFO_RESPONSE;
+ALTER TABLE  "FIPORTAL"."DEPOSIT_INFO_RESPONSE" DROP CONSTRAINT DEP_INFO_RESPONSE;
 ALTER TABLE  "FIPORTAL"."LIABILITY_INFO_RESPONSE" DROP CONSTRAINT LIAB_INFO_RESPONSE;
 ALTER TABLE  "FIPORTAL"."SAFE_INFO_RESPONSE" DROP CONSTRAINT SAFE_INFO_RESPONSE;
-ALTER TABLE "FIPORTAL"."WORKFLOW_TASK" ADD (NOTES VARCHAR2(800) );
+
 
 ALTER TABLE "FIPORTAL"."SAFE_INFO_RESPONSE" RENAME COLUMN REQUEST_ID TO Task_ID ;
 ALTER TABLE "FIPORTAL"."ACCOUNT_BALANCE_INFO_RESPONSE" RENAME COLUMN REQUEST_ID TO Task_ID ;
@@ -293,7 +314,6 @@ ALTER TABLE "FIPORTAL"."DEPOSIT_INFO_RESPONSE" RENAME COLUMN REQUEST_ID TO Task_
 ALTER TABLE "FIPORTAL"."LIABILITY_INFO_RESPONSE" RENAME COLUMN REQUEST_ID TO Task_ID ;
 ALTER TABLE "FIPORTAL"."BALANCE_INFO_SHERINFO" RENAME COLUMN REQUEST_ID TO Task_ID ;
 ALTER TABLE "FIPORTAL"."SHARE_INFO_RESPONSE" RENAME COLUMN REQUEST_ID TO Task_ID ;
-
 
 
 ALTER TABLE "FIPORTAL"."ACCOUNT_BALANCE_INFO_RESPONSE" ADD CONSTRAINT "abirFKY" FOREIGN KEY ("TASK_ID") REFERENCES "FIPORTAL".WORKFLOW_TASK (ID);
