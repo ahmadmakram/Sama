@@ -174,7 +174,7 @@ BEGIN
 		
 --------------------------------------------_ALL_TASKS_VIEW------------------------------------------------------------------------------------------------------------------------
  
- CREATE OR REPLACE VIEW "FIPORTAL"."TANFEETH_ALL_TASKS_VIEW" (
+ CREATE OR REPLACE FORCE EDITIONABLE VIEW "FIPORTAL"."TANFEETH_ALL_TASKS_VIEW" (
     "TASK_ID",
     "TASK_REQUEST_METADATA_ID",
     "SRN",
@@ -197,6 +197,7 @@ BEGIN
     "SUB_SERVICE_TYPE_CODE",
     "TASK_CLOSING_DATE_TIME3",
     "TASK_CLOSING_DATE_TIME4",
+    "LAST_RETURN_DATE_TIME",
     "TASK_CLOSING_DATE_TIME5",
     "ENTITY_GOV_ID",
     "TYPE_CODE"
@@ -216,26 +217,35 @@ BEGIN
         fiportal.workflow_task.is_bulk_processed,
         fiportal.workflow_task.approved_date_time,
         fiportal.workflow_task.request_metadata_id AS request_metadata_id,
-        fiportal.workflow_task.sla_minutes, -- From TASK_INBOX_view
-        fiportal.workflow_task.executed_by, -- From TASK_INBOX_view
-        fiportal.get_lookup_name_ar(15,tanfeeth.agcy_srvc_reqst.process_type_cd) AS main_service_type_name,
-        fiportal.get_lookup_name_ar(32,tanfeeth.agcy_srvc_reqst.bus_srvc_cd) AS sub_service_type_name,
+        fiportal.workflow_task.sla_minutes,-- From TASK_INBOX_view
+        fiportal.workflow_task.executed_by,-- From TASK_INBOX_view
+        fiportal.get_lookup_name_ar(
+            15,
+            tanfeeth.agcy_srvc_reqst.process_type_cd
+        ) AS main_service_type_name,
+        fiportal.get_lookup_name_ar(
+            32,
+            tanfeeth.agcy_srvc_reqst.bus_srvc_cd
+        ) AS sub_service_type_name,
         tanfeeth.agcy_srvc_reqst.process_type_cd AS main_service_type_code,
         tanfeeth.agcy_srvc_reqst.bus_srvc_cd AS sub_service_type_code,
         fiportal.workflow_task.officer_executed_date AS task_closing_date_time3,-- From TASK_INBOX_view
-        fiportal.workflow_task.last_return_date_time AS task_closing_date_time4, -- From TASK_INBOX_view
-        --FIPORTAL.GET_EVENT_DATE_TIME(WORKFLOW_TASK.ID, 6) AS TASK_CLOSING_DATE_TIME6, -- From TASK_INBOX_view
-        --FIPORTAL.GET_EXECUTED_BY(WORKFLOW_TASK.ID, 3) AS TASK_CLOSED_BY3, -- From TASK_INBOX_view
-        fiportal.workflow_task.modification_date AS task_closing_date_time5, -- From TASK_INBOX_view //APPROVED_DATE_TIME
-        fiportal.get_lookup_name_ar(35,tanfeeth.agcy_srvc_reqst.reqstr_cd) AS entity_gov_id,
+        fiportal.workflow_task.officer_executed_date AS task_closing_date_time4,-- From TASK_INBOX_view
+        fiportal.workflow_task.last_return_date_time,
+        --FIPORTAL.GET_EVENT_DATE_TIME(WORKFLOW_TASK.ID,6) AS TASK_CLOSING_DATE_TIME6,-- From TASK_INBOX_view
+        --FIPORTAL.GET_EXECUTED_BY(WORKFLOW_TASK.ID,3) AS TASK_CLOSED_BY3,-- From TASK_INBOX_view
+        fiportal.workflow_task.modification_date AS task_closing_date_time5,-- From TASK_INBOX_view //APPROVED_DATE_TIME
+        fiportal.get_lookup_name_ar(
+            35,
+            tanfeeth.agcy_srvc_reqst.reqstr_cd
+        ) AS entity_gov_id,
       --  tanfeeth.involved_party.agcy_srvc_reqst_id AS request_metadata_id,
         tanfeeth.agcy_srvc_reqst.inqrd_party_cd AS type_code
     FROM
         fiportal.workflow_task,
         tanfeeth.agcy_srvc_reqst
     WHERE
-        tanfeeth.agcy_srvc_reqst.agcy_srvc_reqst_id = fiportal.workflow_task.request_metadata_id (+);
-		
+        tanfeeth.agcy_srvc_reqst.agcy_srvc_reqst_id = fiportal.workflow_task.request_metadata_id;
 		
 		
 ---------------------------------------TRIGGER UPDATE_TASK_DATES --------------------------------------------------------------------
