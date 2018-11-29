@@ -177,7 +177,7 @@ CREATE OR REPLACE FORCE EDITIONABLE VIEW "FIPORTAL"."TASK_BULK_VIEW" (
 		
 --------------------------------------------_ALL_TASKS_VIEW------------------------------------------------------------------------------------------------------------------------
  
- CREATE OR REPLACE FORCE EDITIONABLE VIEW "FIPORTAL"."TANFEETH_ALL_TASKS_VIEW" (
+ CREATE OR REPLACE VIEW "FIPORTAL"."TANFEETH_ALL_TASKS_VIEW" (
     "TASK_ID",
     "TASK_REQUEST_METADATA_ID",
     "SRN",
@@ -203,7 +203,8 @@ CREATE OR REPLACE FORCE EDITIONABLE VIEW "FIPORTAL"."TASK_BULK_VIEW" (
     "LAST_RETURN_DATE_TIME",
     "TASK_CLOSING_DATE_TIME5",
     "ENTITY_GOV_ID",
-    "TYPE_CODE"
+    "TYPE_CODE",
+    "EXECUTED_BY_MANAGER"
 ) AS
     SELECT
         fiportal.workflow_task.id AS task_id,
@@ -243,13 +244,13 @@ CREATE OR REPLACE FORCE EDITIONABLE VIEW "FIPORTAL"."TASK_BULK_VIEW" (
             tanfeeth.agcy_srvc_reqst.reqstr_cd
         ) AS entity_gov_id,
       --  tanfeeth.involved_party.agcy_srvc_reqst_id AS request_metadata_id,
-        tanfeeth.agcy_srvc_reqst.inqrd_party_cd AS type_code
+        tanfeeth.agcy_srvc_reqst.inqrd_party_cd AS type_code,
+        fiportal.workflow_task.executed_by_manager AS executed_by_manager
     FROM
         fiportal.workflow_task,
         tanfeeth.agcy_srvc_reqst
     WHERE
         tanfeeth.agcy_srvc_reqst.agcy_srvc_reqst_id = fiportal.workflow_task.request_metadata_id;
-		
 		
 ---------------------------------------TRIGGER UPDATE_TASK_DATES --------------------------------------------------------------------
 CREATE OR REPLACE TRIGGER "FIPORTAL"."UPDATE_TASK_DATES" BEFORE
