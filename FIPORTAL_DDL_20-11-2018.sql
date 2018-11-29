@@ -13,9 +13,7 @@ ALTER TABLE FIPORTAL.WORKFLOW_TASK ADD (EXECUTED_BY_MANAGER VARCHAR2(800) );
 
 
 
- GRANT select ON fiportal.audit_log_portal to WCR;
- GRANT insert ON fiportal.audit_log_portal to WCR;
- GRANT select ON fiportal.audit_seq to WCR;
+ 
 	
 -------------------------------------FUNCTION GET_LOOKUP_NAME_AR--------------------------------------------
 
@@ -396,3 +394,35 @@ CREATE TABLE "FIPORTAL"."PRD_USR_LST"
 
 
 		
+		
+		
+		
+		------------------------------------------Audit --------------------------------------------
+		
+		
+		CREATE TABLE "FIPORTAL"."AUDIT_LOG_PORTAL" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"INSERT_TIME" TIMESTAMP (6), 
+	"EVENT_TIME" TIMESTAMP (6), 
+	"APPLICATION" VARCHAR2(50 BYTE), 
+	"FLOW_NAME" VARCHAR2(50 BYTE), 
+	"NODE_NAME" VARCHAR2(50 BYTE), 
+	"TASK_ID" VARCHAR2(20 BYTE), 
+	"SRN" VARCHAR2(50 BYTE), 
+	"MSGUID" VARCHAR2(50 BYTE), 
+	"PID" VARCHAR2(20 BYTE), 
+	"EXECUTED_BY" VARCHAR2(50 BYTE), 
+	"STATUS_CODE" VARCHAR2(50 BYTE), 
+	"MESSAGE" VARCHAR2(2000 BYTE), 
+	"INTEGRATION_NODE_NAME" VARCHAR2(100 BYTE), 
+	"CLIENT_IP" VARCHAR2(20 BYTE), 
+	"SERVER_IP" VARCHAR2(20 BYTE), 
+	"MESSAGE_DATA" CLOB
+   )
+   
+   
+    CREATE SEQUENCE  "FIPORTAL"."AUDIT_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 ;
+	
+	GRANT select ON fiportal.audit_log_portal to WCR;
+ GRANT insert ON fiportal.audit_log_portal to WCR;
+ GRANT select ON fiportal.audit_seq to WCR;
