@@ -8,6 +8,7 @@ GRANT select ON WCR.LOOKUP_VALUES to FIPORTAL;
 ALTER TABLE FIPORTAL.WORKFLOW_TASK RENAME  COLUMN  LAST_ASSIGNED_TO to EXECUTED_BY
 ALTER TABLE FIPORTAL.WORKFLOW_TASK ADD (MODIFICATION_DATE TIMESTAMP(6));
 ALTER TABLE FIPORTAL.WORKFLOW_TASK ADD (NOTES VARCHAR2(800) );
+ALTER TABLE FIPORTAL.WORKFLOW_TASK ADD (EXECUTED_BY_MANAGER VARCHAR2(800) );
 
 
 
@@ -125,12 +126,13 @@ BEGIN
 		
 -------------------------- TASK_BULK_VIEW ----------------------------
 
- CREATE OR REPLACE FORCE EDITIONABLE VIEW "FIPORTAL"."TASK_BULK_VIEW" (
+CREATE OR REPLACE FORCE EDITIONABLE VIEW "FIPORTAL"."TASK_BULK_VIEW" (
     "TASK_ID",
     "REQUEST_METADATA_ID",
     "FI_ID",
     "SRN",
     "SUB_SERVICE_TYPE_CODE",
+    "SUB_SERVICE_TYPE_NAME",
     "INVOLVED_ENTITY_NAME",
     "INVOLVED_ENTITY_ID_NO",
     "INVOLVED_ENTITY_ID_TYPE",
@@ -150,7 +152,8 @@ BEGIN
         fiportal.workflow_task.request_metadata_id,
         fiportal.workflow_task.fi_id,
         tanfeeth.agcy_srvc_reqst.srvc_reqst_cor_rn,
-        fiportal.get_lookup_name_ar(32,tanfeeth.agcy_srvc_reqst.bus_srvc_cd) AS bus_srvc_cd,
+        tanfeeth.agcy_srvc_reqst.bus_srvc_cd,
+        fiportal.get_lookup_name_ar(32,tanfeeth.agcy_srvc_reqst.bus_srvc_cd) AS SUB_SERVICE_TYPE_NAME,
         tanfeeth.involved_party.full_name AS involved_entity_name,
         tanfeeth.involved_party.id_no AS involved_entity_id_no,
         fiportal.get_lookup_name_ar(2,tanfeeth.involved_party.id_type_cd) AS id_type,
