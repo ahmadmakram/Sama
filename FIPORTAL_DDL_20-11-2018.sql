@@ -200,9 +200,12 @@ CREATE OR REPLACE FORCE EDITIONABLE VIEW "FIPORTAL"."TASK_BULK_VIEW" (
     "TASK_CLOSING_DATE_TIME4",
     "LAST_RETURN_DATE_TIME",
     "TASK_CLOSING_DATE_TIME5",
-    "ENTITY_GOV_ID",
+    "ENTITY_GOV_NAME",
     "TYPE_CODE",
-    "EXECUTED_BY_MANAGER"
+    "EXECUTED_BY_MANAGER",
+    "GOV_ID",
+    "INVOLVED_ENTITY_ID_NO",
+    "INVOLVED_ENTITY_ID_TYPE"
 ) AS
     SELECT
         fiportal.workflow_task.id AS task_id,
@@ -240,15 +243,24 @@ CREATE OR REPLACE FORCE EDITIONABLE VIEW "FIPORTAL"."TASK_BULK_VIEW" (
         fiportal.get_lookup_name_ar(
             35,
             tanfeeth.agcy_srvc_reqst.reqstr_cd
-        ) AS entity_gov_id,
+        ) AS entity_gov_name,
       --  tanfeeth.involved_party.agcy_srvc_reqst_id AS request_metadata_id,
         tanfeeth.agcy_srvc_reqst.inqrd_party_cd AS type_code,
-        fiportal.workflow_task.executed_by_manager AS executed_by_manager
+        fiportal.workflow_task.executed_by_manager AS executed_by_manager,
+        tanfeeth.agcy_srvc_reqst.reqstr_cd AS gov_id,
+        tanfeeth.involved_party.id_no AS involved_entity_id_no,
+        fiportal.get_lookup_name_ar(
+            2,
+            tanfeeth.involved_party.id_type_cd
+        ) AS id_type
     FROM
         fiportal.workflow_task,
-        tanfeeth.agcy_srvc_reqst
+        tanfeeth.agcy_srvc_reqst,
+        tanfeeth.involved_party
     WHERE
-        tanfeeth.agcy_srvc_reqst.agcy_srvc_reqst_id = fiportal.workflow_task.request_metadata_id;
+            tanfeeth.agcy_srvc_reqst.agcy_srvc_reqst_id = fiportal.workflow_task.request_metadata_id
+        AND
+            tanfeeth.agcy_srvc_reqst.agcy_srvc_reqst_id = tanfeeth.involved_party.agcy_srvc_reqst_id (+);
 		
 ---------------------------------------TRIGGER UPDATE_TASK_DATES --------------------------------------------------------------------
 CREATE OR REPLACE TRIGGER "FIPORTAL"."UPDATE_TASK_DATES" BEFORE
@@ -262,31 +274,36 @@ END;
 
 -----------------------------------------TRIGGER UPDATE_TASK_HISTORY-------------------------------------------------------------------------------------
 
-create or replace TRIGGER FIPORTAL_UPDATE_TASK_HISTORY
-AFTER UPDATE  ON FIPORTAL.WORKFLOW_TASK
-REFERENCING NEW AS NEW
-FOR EACH ROW
+CREATE OR REPLACE TRIGGER fiportal_update_task_history AFTER
+    UPDATE ON fiportal.workflow_task
+    REFERENCING
+            NEW AS new
+            OLD AS old
+    FOR EACH ROW
 BEGIN
-INSERT
-INTO FIPORTAL.WORKFLOW_STATUS_EVENT_HISTORY
-  (
-   ID, TASK_ID, STATUS_ID, SUB_STATUS_ID, EVENT_DATE_TIME, EXECUTED_BY, EXECUTED_BY_ROLE,NOTES
-  )
+    INSERT INTO fiportal.workflow_status_event_history (
+        id,
+        task_id,
+        status_id,
+        sub_status_id,
+        event_date_time,
+        assigned_to,
+        executed_by,
+        executed_by_role,
+        notes
+    ) VALUES (
+        fiportal.event_history_id.nextval,
+        :new.id,
+        :new.status_id,
+        :new.sub_status_id,
+        SYSDATE,
+        :new.assigned_to,
+        :old.assigned_to,
+        :new.assigned_by_role,
+        :new.notes
+    );
 
-  VALUES
-
-  (
-    FIPORTAL.EVENT_HISTORY_ID.NEXTVAL,
-    :new.ID,
-    :new.STATUS_ID,
-    :new.SUB_STATUS_ID,
-     sysdate,
-    :new.ASSIGNED_BY,
-    :new.ASSIGNED_BY_ROLE,
-    :new.NOTES
-  );
-
-END
+END;
 
 ---------------------------------------GI services update------------------------------------
 
