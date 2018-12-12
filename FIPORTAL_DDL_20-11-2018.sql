@@ -1,15 +1,23 @@
 
+--------------------------- run as TANFEETH  --------------------
+
+GRANT select ON TANFEETH.AGCY_SRVC_REQST to FIPORTAL;
+GRANT select ON TANFEETH.INVOLVED_PARTY to FIPORTAL;
 
 --------------------------- run as WCR --------------------
 GRANT select ON WCR.LOOKUP_VALUES to FIPORTAL;
 
 ----------------------------------- run as FIPORTAL  -----------------------------------------------
 ----------------------------------------------------------------------------------------------
-ALTER TABLE FIPORTAL.WORKFLOW_TASK RENAME  COLUMN  LAST_ASSIGNED_TO to EXECUTED_BY
+
+GRANT INSERT ON FIPORTAL.WORKFLOW_TASK to TANFEETH;
+
+
+ALTER TABLE FIPORTAL.WORKFLOW_TASK ADD (OFFICER_EXECUTED_DATE TIMESTAMP(6));
 ALTER TABLE FIPORTAL.WORKFLOW_TASK ADD (MODIFICATION_DATE TIMESTAMP(6));
 ALTER TABLE FIPORTAL.WORKFLOW_TASK ADD (NOTES VARCHAR2(800) );
 ALTER TABLE FIPORTAL.WORKFLOW_TASK ADD (EXECUTED_BY_MANAGER VARCHAR2(800) );
-ALTER TABLE FIPORTAL.WORKFLOW_TASK ADD (LAST_ASSIGNED_TO VARCHAR2(200) );
+ALTER TABLE FIPORTAL.WORKFLOW_TASK ADD (EXECUTED_BY VARCHAR2(200) );
 ALTER TABLE FIPORTAL.WORKFLOW_TASK ADD (MSGUID VARCHAR2(50) );
 ALTER TABLE FIPORTAL.WORKFLOW_TASK RENAME  COLUMN  APPROVED_DATE_TIME to MANAGER_ACTION_DATE;
 
@@ -26,9 +34,9 @@ BEGIN
         lov_parent = lov_parent_var
         AND   lov_code = code
         AND   ROWNUM = 1;	
-
+RETURN (entity_name);
+END:
 		
-
 --------------------------   TASK_DETAILS_VIEW      ----------------------
 
 CREATE OR REPLACE VIEW "FIPORTAL"."TANFEETH_TASK_DETAILS_VIEW" (
@@ -264,15 +272,6 @@ CREATE OR REPLACE FORCE EDITIONABLE VIEW "FIPORTAL"."TASK_BULK_VIEW" (
         tanfeeth.agcy_srvc_reqst.agcy_srvc_reqst_id = fiportal.workflow_task.request_metadata_id
         AND   tanfeeth.agcy_srvc_reqst.agcy_srvc_reqst_id = tanfeeth.involved_party.agcy_srvc_reqst_id (+);
 		
----------------------------------------TRIGGER UPDATE_TASK_DATES --------------------------------------------------------------------
-CREATE OR REPLACE TRIGGER "FIPORTAL"."UPDATE_TASK_DATES" BEFORE
-    UPDATE ON fiportal.workflow_task
-    FOR EACH ROW
-BEGIN
-        :new.MODIFICATION_DATE := SYSDATE;
-END;
-
-
 
 -----------------------------------------TRIGGER UPDATE_TASK_HISTORY-------------------------------------------------------------------------------------
 
@@ -370,7 +369,19 @@ ALTER TABLE SAFE_INFO_RESPONSE DROP COLUMN IS_DELETED;
 
 
 
-----------------------------------
+-----------------------------------------------------------------------------------
+--------------------------------------------------------
+--  DDL for Sequence PRD_SHRS_SEQ
+----------
+ CREATE SEQUENCE  "FIPORTAL"."PRD_SHRS_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 ;
+
+-------------------------------------------------------------------------------------------------
+--  DDL for Sequence PRD_USR_LST_SEQ
+---------------------------------------------------------------------------------------------------------------
+
+ CREATE SEQUENCE  "FIPORTAL"."PRD_USR_LST_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 ;
+
+------------------------------------------------------------
 
 CREATE TABLE "FIPORTAL"."PRD_USR_LST" 
    ("PRD_USR_LST_ID" NUMBER DEFAULT "FIPORTAL"."PRD_USR_LST_SEQ"."NEXTVAL", 
@@ -380,44 +391,28 @@ CREATE TABLE "FIPORTAL"."PRD_USR_LST"
 	"PRD_USER_ID_TYPE" VARCHAR2(20 CHAR), 
 	"PRD_USER_TYPE" VARCHAR2(20 CHAR), 
 	"PRD_USER_NAME" VARCHAR2(150 CHAR), 
+	"TASK_ID" NUMBER NOT NULL ENABLE, 
 	 CONSTRAINT "PRD_USR_LST_PK" PRIMARY KEY ("PRD_USR_LST_ID")
 	 
 	 )
 	 
 	 
 	---------------------------------
-	 
-	 CREATE TABLE "FIPORTAL"."PRD_USR_LST" 
-   (	"PRD_USR_LST_ID" NUMBER DEFAULT "FIPORTAL"."PRD_USR_LST_SEQ"."NEXTVAL", 
-	"PRD_ID" NUMBER NOT NULL ENABLE, 
+	
+	CREATE TABLE "FIPORTAL"."PRODUCT_SHARE" 
+   ("PRD_SHRS_ID" NUMBER DEFAULT "TANFEETH"."PRD_SHRS_SEQ"."NEXTVAL", 
+	"TASK_ID" NUMBER NOT NULL ENABLE, 
 	"PRD_TYPE" VARCHAR2(20 CHAR) NOT NULL ENABLE, 
-	"PRD_USER_ID" VARCHAR2(24 CHAR), 
-	"PRD_USER_ID_TYPE" VARCHAR2(20 CHAR), 
-	"PRD_USER_TYPE" VARCHAR2(20 CHAR), 
-	"PRD_USER_NAME" VARCHAR2(150 CHAR), 
-	 CONSTRAINT "PRD_USR_LST_PK" PRIMARY KEY ("PRD_USR_LST_ID")
+	"COMP_NAME" VARCHAR2(100 CHAR), 
+	"SHRS_PRCNT" VARCHAR2(20 CHAR), 
+	 CONSTRAINT "PRD_SHRS_PK" PRIMARY KEY ("PRD_SHRS_ID")
 	 )
---------------------------------------------------------
---  DDL for Sequence PRD_SHRS_SEQ
-----------
-
-----------------------------------------------
-
-   CREATE SEQUENCE  "FIPORTAL"."PRD_SHRS_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
-
---------------------------------------------------------
---  DDL for Sequence PRD_USR_LST_SEQ
---------------------------------------------------------
-
-   CREATE SEQUENCE  "FIPORTAL"."PRD_USR_LST_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 701 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
+	
 
 
-		
-		
-		
-		
-		------------------------------------------Audit --------------------------------------------
-		
+------------------------------------------Audit --------------------------------------------
+  
+  CREATE SEQUENCE  "FIPORTAL"."AUDIT_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 ;		
 		
 		CREATE TABLE "FIPORTAL"."AUDIT_LOG_PORTAL" 
    (	"ID" NUMBER NOT NULL ENABLE, 
@@ -440,8 +435,8 @@ CREATE TABLE "FIPORTAL"."PRD_USR_LST"
    )
    
    
-    CREATE SEQUENCE  "FIPORTAL"."AUDIT_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 ;
+  
 	
-	GRANT select ON fiportal.audit_log_portal to WCR;
- GRANT insert ON fiportal.audit_log_portal to WCR;
- GRANT select ON fiportal.audit_seq to WCR;
+GRANT select ON fiportal.audit_log_portal to WCR;
+GRANT insert ON fiportal.audit_log_portal to WCR;
+GRANT select ON fiportal.audit_seq to WCR;
