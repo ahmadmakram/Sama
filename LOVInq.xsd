@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.sama.bea.sa/public/LOVInq" xmlns="http://www.sama.bea.sa/public/LOVInq" xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions">
+		
+
+    <xsd:element ibmSchExtn:docRoot="true" name="getLovList">
+		<xsd:complexType>
+		  <xsd:sequence>
+			<xsd:element maxOccurs="unbounded" minOccurs="1" name="LOVMsgRq" type="LOVMsgRq_Type"/>
+		  </xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+    <xsd:element ibmSchExtn:docRoot="true" name="getLovListResponse">
+		<xsd:complexType>
+		  <xsd:sequence>
+			<xsd:element name="LOVMsgRs" type="LOVMsgRs_Type"/>
+		  </xsd:sequence>
+		</xsd:complexType>
+  </xsd:element>
+  
+  
+  
+   <xsd:complexType name="LOVConditions_Type">
+    	<xsd:sequence>
+    		<xsd:element minOccurs="0" name="LOVCondition1" type="xsd:string"/>
+    		<xsd:element minOccurs="0" name="LOVCondition2" type="xsd:string"/>
+    		<xsd:element minOccurs="0" name="LOVCondition3" type="xsd:string"/>
+    		<xsd:element minOccurs="0" name="LOVCondition4" type="xsd:string"/>
+    	</xsd:sequence>
+    </xsd:complexType>
+
+    
+
+    <xsd:complexType name="LOVMsgRq_Type">
+    	<xsd:sequence>
+    		<xsd:element maxOccurs="1" minOccurs="1" name="LOVType" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="LOVCode" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="LOVCondition" type="LOVConditions_Type"/>
+
+    	</xsd:sequence>
+    </xsd:complexType>
+	
+	
+	<xsd:complexType name="Attribute_Type">
+    	<xsd:sequence>
+    		<xsd:element name="Attribute1" type="xsd:string"/>
+    		<xsd:element name="Attribute2" type="xsd:string"/>
+    		<xsd:element name="Attribute3" type="xsd:string"/>
+    		<xsd:element name="Attribute4" type="xsd:string"/>
+    		<xsd:element name="Attribute5" type="xsd:string"/>
+    		<xsd:element name="Attribute6" type="xsd:string"/>
+    		<xsd:element name="Attribute7" type="xsd:string"/>
+    		<xsd:element name="Attribute8" type="xsd:string"/>
+    		<xsd:element name="Attribute9" type="xsd:string"/>
+    	</xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="RecShortDesc_Type">
+    	<xsd:sequence>
+    		<xsd:element name="RecShortDesc" type="xsd:string"/>
+    	</xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="RecDesc_Type">
+    	<xsd:sequence>
+    		<xsd:element name="RecDesc" type="xsd:string"/>
+    	</xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="RecTypeCode_Type">
+    	<xsd:sequence>
+    		<xsd:element name="RecTypeCode" type="xsd:string"/>
+    	</xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="LOVInfo_Type">
+    	<xsd:sequence>
+    		<xsd:element name="RecTypeCode" type="RecTypeCode_Type"/>
+    		<xsd:element name="RecDesc" type="RecDesc_Type"/>
+    		<xsd:element name="RecShortDesc" type="RecShortDesc_Type"/>
+    		<xsd:element name="Attributes" type="Attribute_Type"/>
+    		<xsd:element name="Condition" type="ConditionType"/>
+    	</xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="LOVList_Type">
+    	<xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="LOVType" type="xsd:string"/>
+            <xsd:element maxOccurs="unbounded" name="LOVInfo" type="LOVInfo_Type"/>
+    	</xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="NumOfRecs_Type">
+    	<xsd:sequence>
+    		<xsd:element name="NumOfRecs" type="xsd:int"/>
+    	</xsd:sequence>
+    </xsd:complexType>
+
+
+    <xsd:complexType name="LOVMsgRs_Type">
+    	<xsd:sequence>
+    		<xsd:element maxOccurs="unbounded" minOccurs="1" name="LOVList" type="LOVList_Type"/>
+            <xsd:element name="NumOfRecs" type="NumOfRecs_Type"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ConditionType">
+    	<xsd:sequence>
+    		<xsd:element name="COND1" type="xsd:string"/>
+    		<xsd:element name="COND2" type="xsd:string"/>
+    		<xsd:element name="COND3" type="xsd:string"/>
+    		<xsd:element name="COND4" type="xsd:string"/>
+    	</xsd:sequence>
+    </xsd:complexType>
+
+</xsd:schema>
