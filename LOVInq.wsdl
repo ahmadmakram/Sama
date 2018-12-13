@@ -1,17 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" name="LOVInq" targetNamespace="http://www.sama.bea.sa/public/LOVInq" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.sama.bea.sa/public/LOVInq" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <wsdl:documentation>
-    <wsdl:appinfo source="WMQI_APPINFO">
-      <MRWSDLAppInfo imported="true">
-        <binding hasEncoding="false" imported="true" name="LOVInqSOAP" originalBindingStyle="document"/>
-      </MRWSDLAppInfo>
-    </wsdl:appinfo>
-  </wsdl:documentation>
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+name="LOVInq" targetNamespace="http://www.sama.bea.sa/public/LOVInq" 
+xmlns:tns ="http://www.sama.bea.sa/public/LOVInq" 
+xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
 
 	<wsdl:types>
         <xsd:schema targetNamespace="http://www.sama.bea.sa/public/LOVInq">
-<xsd:include schemaLocation="LOVInq.xsd"/>
-</xsd:schema>
+            <xsd:include schemaLocation="LOVInq.xsd"/>
+		</xsd:schema>
     </wsdl:types>
 
 	<wsdl:message name="getLovListRequestMsg">
