@@ -325,17 +325,18 @@ CREATE OR REPLACE FORCE EDITIONABLE VIEW "FIPORTAL"."TASK_BULK_VIEW" (
     "LAST_RETURN_DATE_TIME",
     "TASK_CLOSING_DATE_TIME5",
     "ENTITY_GOV_NAME",
-    "TYPE_CODE",
     "EXECUTED_BY_MANAGER",
-    "GOV_ID",
+    "ENTITY_GOV_ID",
+    "LAST_ASSIGNED_TO",
+    "INVOLVED_ENTITY_NAME",
     "INVOLVED_ENTITY_ID_NO",
-    "INVOLVED_ENTITY_ID_TYPE",
-    "LAST_ASSIGNED_TO"
+    "INVOLVED_ENTITY_ID_TYPE_CD",
+    "INVOLVED_ENTITY_ID_TYPE"
 ) AS
     SELECT
         fiportal.workflow_task.id AS task_id,
         fiportal.workflow_task.request_metadata_id AS task_request_metadata_id,
-        tanfeeth.agcy_srvc_reqst.srvc_reqst_cor_rn,
+        fiportal.workflow_task.srn,
         fiportal.workflow_task.fi_id,
         fiportal.workflow_task.created_date_time AS task_created_date_time,
         fiportal.workflow_task.assigned_date_time,
@@ -347,37 +348,29 @@ CREATE OR REPLACE FORCE EDITIONABLE VIEW "FIPORTAL"."TASK_BULK_VIEW" (
         fiportal.workflow_task.is_bulk_processed,
         fiportal.workflow_task.manager_action_date,
         fiportal.workflow_task.request_metadata_id AS request_metadata_id,
-        fiportal.workflow_task.sla_minutes,-- From TASK_INBOX_view
-        fiportal.workflow_task.executed_by,-- From TASK_INBOX_view
-        fiportal.get_lookup_name_ar(15,tanfeeth.agcy_srvc_reqst.process_type_cd) AS main_service_type_name,
-        fiportal.get_lookup_name_ar(32,tanfeeth.agcy_srvc_reqst.bus_srvc_cd) AS sub_service_type_name,
-        tanfeeth.agcy_srvc_reqst.process_type_cd AS main_service_type_code,
-        tanfeeth.agcy_srvc_reqst.bus_srvc_cd AS sub_service_type_code,
-        fiportal.workflow_task.officer_executed_date AS task_closing_date_time3,-- From TASK_INBOX_view
-        fiportal.workflow_task.officer_executed_date AS task_closing_date_time4,-- From TASK_INBOX_view
+        fiportal.workflow_task.sla_minutes,
+        fiportal.workflow_task.executed_by,
+        fiportal.get_lookup_name_ar(15,fiportal.workflow_task.process_type_cd) AS main_service_type_name,
+        fiportal.get_lookup_name_ar(32,fiportal.workflow_task.bus_srvc_cd) AS sub_service_type_name,
+        fiportal.workflow_task.process_type_cd AS main_service_type_code,
+        fiportal.workflow_task.bus_srvc_cd AS sub_service_type_code,
+        fiportal.workflow_task.officer_executed_date AS task_closing_date_time3,
+        fiportal.workflow_task.officer_executed_date AS task_closing_date_time4,
         fiportal.workflow_task.last_return_date_time,
-        --FIPORTAL.GET_EVENT_DATE_TIME(WORKFLOW_TASK.ID,6) AS TASK_CLOSING_DATE_TIME6,-- From TASK_INBOX_view
-        --FIPORTAL.GET_EXECUTED_BY(WORKFLOW_TASK.ID,3) AS TASK_CLOSED_BY3,-- From TASK_INBOX_view
-        fiportal.workflow_task.modification_date AS task_closing_date_time5,-- From TASK_INBOX_view //MANAGER_ACTION_DATE
-        fiportal.get_lookup_name_ar(35,tanfeeth.agcy_srvc_reqst.reqstr_cd) AS entity_gov_name,
-      --  tanfeeth.involved_party.agcy_srvc_reqst_id AS request_metadata_id,
-        tanfeeth.agcy_srvc_reqst.inqrd_party_cd AS type_code,
+        fiportal.workflow_task.modification_date AS task_closing_date_time5,
+        fiportal.get_lookup_name_ar(35,fiportal.workflow_task.reqstr_cd) AS entity_gov_name,
         fiportal.workflow_task.executed_by_manager AS executed_by_manager,
-        tanfeeth.agcy_srvc_reqst.reqstr_cd AS gov_id,
+        fiportal.workflow_task.reqstr_cd AS entity_gov_id,
+        fiportal.workflow_task.last_assigned_to AS last_assigned_to,
+        tanfeeth.involved_party.full_name AS involved_entity_name,
         tanfeeth.involved_party.id_no AS involved_entity_id_no,
-        tanfeeth.involved_party.id_type_cd AS id_type,
-        fiportal.workflow_task.last_assigned_to AS last_assigned_to
-        --fiportal.get_lookup_name_ar(
-            --2,
-          --  tanfeeth.involved_party.id_type_cd
-        --) AS id_type
+        tanfeeth.involved_party.id_type_cd AS id_type_cd,
+        fiportal.get_lookup_name_ar(2,tanfeeth.involved_party.id_type_cd) AS id_type
     FROM
         fiportal.workflow_task,
-        tanfeeth.agcy_srvc_reqst,
         tanfeeth.involved_party
     WHERE
-        tanfeeth.agcy_srvc_reqst.agcy_srvc_reqst_id = fiportal.workflow_task.request_metadata_id
-        AND   tanfeeth.agcy_srvc_reqst.agcy_srvc_reqst_id = tanfeeth.involved_party.agcy_srvc_reqst_id (+);
+        fiportal.workflow_task.request_metadata_id = tanfeeth.involved_party.agcy_srvc_reqst_id (+);
 		
 
 -----------------------------------------TRIGGER UPDATE_TASK_HISTORY-------------------------------------------------------------------------------------
