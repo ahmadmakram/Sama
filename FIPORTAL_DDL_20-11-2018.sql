@@ -63,7 +63,8 @@ CREATE INDEX WF_TASK_MSGID_ID ON WORKFLOW_TASK (MSGUID, ID);
 ALTER TABLE FIPORTAL.ACCOUNT_INFO_RESERVE ADD (Task_ID NUMBER );
 ALTER TABLE FIPORTAL.BALANCE_INFO_RESERVE ADD (Task_ID NUMBER );
 
-
+alter table FIPORTAL.PRODUCT_SHARE drop column PRD_TYPE;
+alter table FIPORTAL.PRD_USR_LST drop column PRD_TYPE;
 ------------------------------------ Tanfeeth TRIGGER-------------------------------------
 
 create or replace TRIGGER EXTR_SRVC_TRIG_UPD_STATUS
