@@ -280,7 +280,7 @@ CREATE OR REPLACE VIEW "FIPORTAL"."TANFEETH_TASK_DETAILS_VIEW" (
 		
 -------------------------- TASK_BULK_VIEW ----------------------------
 
-CREATE OR REPLACE FORCE EDITIONABLE VIEW "FIPORTAL"."TASK_BULK_VIEW" (
+CREATE OR REPLACE VIEW "FIPORTAL"."TASK_BULK_VIEW" (
     "TASK_ID",
     "REQUEST_METADATA_ID",
     "FI_ID",
@@ -305,29 +305,27 @@ CREATE OR REPLACE FORCE EDITIONABLE VIEW "FIPORTAL"."TASK_BULK_VIEW" (
         fiportal.workflow_task.id AS task_id,
         fiportal.workflow_task.request_metadata_id,
         fiportal.workflow_task.fi_id,
-        tanfeeth.agcy_srvc_reqst.srvc_reqst_cor_rn,
-        tanfeeth.agcy_srvc_reqst.bus_srvc_cd,
-        fiportal.get_lookup_name_ar(32,tanfeeth.agcy_srvc_reqst.bus_srvc_cd) AS SUB_SERVICE_TYPE_NAME,
+        fiportal.workflow_task.srn,
+        fiportal.workflow_task.bus_srvc_cd,
+        fiportal.get_lookup_name_ar(32,fiportal.workflow_task.bus_srvc_cd) AS sub_service_type_name,
         tanfeeth.involved_party.full_name AS involved_entity_name,
         tanfeeth.involved_party.id_no AS involved_entity_id_no,
         fiportal.get_lookup_name_ar(2,tanfeeth.involved_party.id_type_cd) AS id_type,
-        fiportal.get_lookup_name_ar(13,tanfeeth.agcy_srvc_reqst.reqstr_cd) AS entity_gov_name,
-        tanfeeth.agcy_srvc_reqst.reqst_recv_time AS request_created_date_time,
+        fiportal.get_lookup_name_ar(13,fiportal.workflow_task.reqstr_cd) AS entity_gov_name,
+        fiportal.workflow_task.created_date_time AS request_created_date_time,
         fiportal.workflow_task.status_id,
         fiportal.workflow_task.sub_status_id,
         fiportal.workflow_task.assigned_to,
         fiportal.workflow_task.is_bulk_processed,
         fiportal.workflow_task.due_date_time,
         fiportal.workflow_task.require_checker,
-        tanfeeth.agcy_srvc_reqst.reqstr_cd AS entity_gov_id,
+        fiportal.workflow_task.reqstr_cd AS entity_gov_id,
         fiportal.workflow_task.executed_by AS executed_by_3
     FROM
         fiportal.workflow_task,
-        tanfeeth.agcy_srvc_reqst,
         tanfeeth.involved_party
     WHERE
-        tanfeeth.agcy_srvc_reqst.agcy_srvc_reqst_id = fiportal.workflow_task.request_metadata_id
-        AND   tanfeeth.agcy_srvc_reqst.agcy_srvc_reqst_id = tanfeeth.involved_party.agcy_srvc_reqst_id (+);
+        fiportal.workflow_task.request_metadata_id = tanfeeth.involved_party.agcy_srvc_reqst_id (+);
 		
 --------------------------------------------_ALL_TASKS_VIEW------------------------------------------------------------------------------------------------------------------------
  
