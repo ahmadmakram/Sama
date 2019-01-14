@@ -283,47 +283,28 @@ CREATE OR REPLACE VIEW "FIPORTAL"."TANFEETH_TASK_DETAILS_VIEW" (
 		
 -------------------------- TASK_BULK_VIEW ----------------------------
 
-CREATE OR REPLACE VIEW "FIPORTAL"."TASK_BULK_VIEW" (
-    "TASK_ID",
-    "REQUEST_METADATA_ID",
-    "FI_ID",
-    "SRN",
-    "SUB_SERVICE_TYPE_CODE",
-    "SUB_SERVICE_TYPE_NAME",
-    "INVOLVED_ENTITY_NAME",
-    "INVOLVED_ENTITY_ID_NO",
-    "INVOLVED_ENTITY_ID_TYPE",
-    "ENTITY_GOV_NAME",
-    "REQUEST_CREATED_DATE_TIME",
-    "STATUS_ID",
-    "SUB_STATUS_ID",
-    "ASSIGNED_TO",
-    "IS_BULK_PROCESSED",
-    "DUE_DATE_TIME",
-    "REQUIRE_CHECKER",
-    "ENTITY_GOV_ID",
-    "EXECUTED_BY_3"
-) AS
+CREATE OR REPLACE VIEW "FIPORTAL"."TASK_BULK_VIEW" AS
     SELECT
-        fiportal.workflow_task.id AS task_id,
+        fiportal.workflow_task.id AS id,
         fiportal.workflow_task.request_metadata_id,
         fiportal.workflow_task.fi_id,
         fiportal.workflow_task.srn,
         fiportal.workflow_task.bus_srvc_cd,
         fiportal.get_lookup_name_ar(32,fiportal.workflow_task.bus_srvc_cd) AS sub_service_type_name,
         tanfeeth.involved_party.full_name AS involved_entity_name,
-        tanfeeth.involved_party.id_no AS involved_entity_id_no,
+        tanfeeth.involved_party.id_no AS id_no,
         fiportal.get_lookup_name_ar(2,tanfeeth.involved_party.id_type_cd) AS id_type,
         fiportal.get_lookup_name_ar(13,fiportal.workflow_task.reqstr_cd) AS entity_gov_name,
-        fiportal.workflow_task.created_date_time AS request_created_date_time,
+        fiportal.workflow_task.created_date_time,
         fiportal.workflow_task.status_id,
         fiportal.workflow_task.sub_status_id,
         fiportal.workflow_task.assigned_to,
         fiportal.workflow_task.is_bulk_processed,
         fiportal.workflow_task.due_date_time,
         fiportal.workflow_task.require_checker,
-        fiportal.workflow_task.reqstr_cd AS entity_gov_id,
-        fiportal.workflow_task.executed_by AS executed_by_3
+        fiportal.workflow_task.reqstr_cd,
+        fiportal.workflow_task.executed_by,
+        fiportal.workflow_task.executed_by_manager
     FROM
         fiportal.workflow_task,
         tanfeeth.involved_party
