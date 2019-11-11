@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:fitr="http://www.sama.bea.sa/execution/services/FITransferCallBack"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="RPLiftCallBack"
+    targetNamespace="http://www.sama.bea.sa/execution/services/FITransferCallBack" xmlns:gs-ai="http://www.sama.bea.sa/execution/services/FITransfer"
+    xmlns:head="http://www.sama.bea.sa/common/Header">
+
+    <wsdl:types>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+             <xsd:import namespace="http://www.sama.bea.sa/execution/services/FITransfer" schemaLocation="../services/FITransfer.xsd" />
+            <xsd:import namespace="http://www.sama.bea.sa/common/Header" schemaLocation="../../common/Header.xsd" />
+        </xsd:schema>
+    </wsdl:types>
+
+    <wsdl:message name="FITransferCallBackRq">
+        <wsdl:part element="gs-ai:FITransferCallBackRq" name="parameters" />
+    </wsdl:message>
+    <wsdl:message name="FITransferCallBackRs">
+        <wsdl:part element="gs-ai:FITransferCallBackRs" name="parameters" />
+    </wsdl:message>
+    <wsdl:message name="RqHdr">
+        <wsdl:part element="head:MsgHdrRq" name="header" />
+    </wsdl:message>
+    <wsdl:message name="RsHdr">
+        <wsdl:part element="head:MsgHdrRs" name="header" />
+    </wsdl:message>
+
+    <wsdl:portType name="FITransferCallBack">
+        <wsdl:operation name="FITransferCallBack">
+            <wsdl:input message="fitr:FITransferCallBackRq" />
+            <wsdl:output message="fitr:FITransferCallBackRs" />
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <wsdl:binding name="FITransferCallBackSOAP" type="fitr:FITransferCallBack">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+        <wsdl:operation name="FITransferCallBack">
+            <soap:operation soapAction="http://www.sama.bea.sa/execution/services/FITransferCallBack/FITransferCallBack" />
+            <wsdl:input>
+                <soap:body use="literal" />
+                <soap:header message="fitr:RqHdr" part="header" use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+                <soap:header message="fitr:RsHdr" part="header" use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:service name="FITransferCallBack">
+        <wsdl:port binding="fitr:FITransferCallBackSOAP" name="FITransferCallBackSOAP">
+            <soap:address location="http://www.sama.bea.sa/" />
+        </wsdl:port>
+    </wsdl:service>
+
+</wsdl:definitions>

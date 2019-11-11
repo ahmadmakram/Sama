@@ -1,0 +1,1160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema
+	targetNamespace="http://www.sama.bea.sa/execution/services/ExecutionLib"
+	elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:base="http://www.sama.bea.sa/common/BaseLib"
+	xmlns:exe-lib="http://www.sama.bea.sa/execution/services/ExecutionLib">
+
+	<import schemaLocation="../../common/BaseLib.xsd"
+		namespace="http://www.sama.bea.sa/common/BaseLib">
+	</import>
+
+
+
+	<complexType name="T_FIRsExecution">
+		<sequence>
+			<element name="FICode" type="base:T_FICode" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="FIRsStatus" type="base:T_StatusCode"
+				maxOccurs="1" minOccurs="1">
+			</element>
+			
+			<element minOccurs="1" name="ExeDtTm"
+				type="base:T_MsgDtTm">
+			</element>
+			
+			
+			<element name="CustInfo" type="base:T_CustInfo"
+				maxOccurs="1" minOccurs="0">
+			</element>
+		</sequence>
+	</complexType>
+	
+	
+	<complexType name="T_BlockLiftCndtn">
+		<sequence>
+			<element name="FundXfer" type="exe-lib:T_BlockFundXfer" minOccurs="1"
+				maxOccurs="1">
+			</element>
+		</sequence>
+	</complexType>
+	
+	
+	<complexType name="T_BlockFundXfer">
+		<sequence>
+			<element name="Amt" type="base:T_BaseAmt_PosAmt" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="Benf" type="base:T_Benf"
+				maxOccurs="1" minOccurs="1">
+			</element>
+		</sequence>
+	</complexType>
+	
+
+	<complexType name="T_LiftSmryInfo">
+		<sequence>
+			<element name="TotAmt" type="base:T_BaseAmt" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="BlockAmt" type="base:T_BaseAmt" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			
+		</sequence>
+	</complexType>
+	
+	<complexType name="T_FIRsBlockDtls">
+	
+		<sequence>
+			<element name="FIRsBlockInfo" type="exe-lib:T_FIRsBlockInfo"
+				minOccurs="1" maxOccurs="unbounded">
+			</element>
+		</sequence>
+		
+	</complexType>
+	
+	
+	<complexType name="T_FIRsBlockInfo">
+		<sequence>
+			<element name="FICode" type="base:T_FICode" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="FIRsStatus" type="base:T_StatusCode"
+				maxOccurs="1" minOccurs="1">
+			</element>
+
+			<element name="CustInfo" type="base:T_CustInfo"
+				maxOccurs="1" minOccurs="0">
+			</element>
+					
+			<element name="SmryInfo" type="exe-lib:T_BlockSmryInfo"
+				maxOccurs="1" minOccurs="0">
+			</element>
+
+			<element name="BlockDtlsInfo" type="exe-lib:T_BlockDtlsInfo"
+				maxOccurs="1" minOccurs="0">
+			</element>
+			
+		</sequence>
+	</complexType>
+	
+	
+	<complexType name="T_FIBlockOutline">
+		<sequence>
+		
+		<element name="DcsnInfo" type="exe-lib:T_BlockDcsnInfo"
+				maxOccurs="1" minOccurs="1">
+			</element>
+			
+			<element name="ExePlan" type="exe-lib:T_ExePlan" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="PndngAmt" type="base:T_BaseAmt"
+				maxOccurs="1" minOccurs="0">
+			</element>
+
+			<element name="ReqExeInfo" type="exe-lib:T_ReqExeInfo"
+				maxOccurs="1" minOccurs="0">
+			</element>
+					
+			<element name="ReqInqInfo" type="exe-lib:T_ReqInqInfo"
+				maxOccurs="1" minOccurs="0">
+			</element>
+
+		</sequence>
+	</complexType>
+	
+	
+	<complexType name="T_ReqExeInfo">
+	
+		<sequence>
+			<element name="Accts" type="base:T_Flag"
+				minOccurs="1" maxOccurs="1">
+			</element>
+				<element name="Depots" type="base:T_Flag"
+				minOccurs="1" maxOccurs="1">
+			</element>
+				<element name="Safs" type="base:T_Flag"
+				minOccurs="1" maxOccurs="1">
+			</element>
+		</sequence>
+		
+	</complexType>
+	
+	<complexType name="T_ReqInqInfo">
+	
+		<sequence>
+			<element name="JntAccts" type="base:T_Flag"
+				minOccurs="1" maxOccurs="1">
+			</element>
+				<element name="JntDepots" type="base:T_Flag"
+				minOccurs="1" maxOccurs="1">
+			</element>
+				<element name="Shrs" type="base:T_Flag"
+				minOccurs="1" maxOccurs="1">
+			</element>
+		</sequence>
+		
+	</complexType>
+	
+	<complexType name="T_FIRsLiftDtls">
+	
+		<sequence>
+			<element name="FIRsLiftInfo" type="exe-lib:T_FIRsLiftInfo"
+				minOccurs="1" maxOccurs="unbounded">
+			</element>
+		</sequence>
+		
+	</complexType>
+	
+		
+	<complexType name="T_FIRsGarnishDtls">
+	
+		<sequence>
+			<element name="FIRsGarnishInfo" type="exe-lib:T_FIRsGarnishInfo"
+				minOccurs="1" maxOccurs="unbounded">
+			</element>
+		</sequence>
+		
+	</complexType>
+	
+	
+	<complexType name="T_FIRsGarnishInfo">
+		<sequence>
+			<element name="FICode" type="base:T_FICode" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="FIRsStatus" type="base:T_StatusCode"
+				maxOccurs="1" minOccurs="1">
+			</element>
+
+			<element name="CustInfo" type="base:T_CustInfo"
+				maxOccurs="1" minOccurs="0">
+			</element>
+			
+			<element name="SmryInfo" type="exe-lib:T_GarnishSmryInfo"
+				maxOccurs="1" minOccurs="0">
+			</element>
+
+			<element name="GarnishDtlsInfo" type="exe-lib:T_GarnishDtlsInfo"
+				maxOccurs="1" minOccurs="0">
+			</element>
+		
+			
+		</sequence>
+	</complexType>
+	
+	<complexType name="T_FIRsLiftInfo">
+		<sequence>
+			<element name="FICode" type="base:T_FICode" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="FIRsStatus" type="base:T_StatusCode"
+				maxOccurs="1" minOccurs="1">
+			</element>
+
+			<element name="CustInfo" type="base:T_CustInfo"
+				maxOccurs="1" minOccurs="0">
+			</element>
+			
+			<element minOccurs="1" name="ExeDtTm"
+				type="base:T_MsgDtTm">
+			</element>
+			
+			<element name="BlockLiftInfo" type="exe-lib:T_BlockLiftInfo"
+				maxOccurs="1" minOccurs="0">
+			</element>
+
+		</sequence>
+	</complexType>
+	
+	
+	<complexType name="T_BlockLiftInfo">
+	
+		<sequence>
+			<element name="SmryInfo" type="exe-lib:T_LiftSmryInfo" maxOccurs="1" minOccurs="1"></element>
+			<element name="XfersList" type="exe-lib:T_ExeXferList" minOccurs="1" maxOccurs="1"></element>
+		</sequence>
+		
+		
+	</complexType>
+	
+
+	<complexType name="T_BlockDtlsInfo">
+	
+	
+		<choice>
+			<element name="BlocksInqLists" type="exe-lib:T_BlocksInqLists" minOccurs="1" maxOccurs="1"></element>
+			<element name="XfersList" type="exe-lib:T_ExeXferList" minOccurs="1" maxOccurs="1"></element>
+		</choice>
+		
+		
+	</complexType>
+	
+	
+	<complexType name="T_BlocksInqLists">
+	
+		<sequence>
+			<element name="BlocksList" type="exe-lib:T_ExeDtlsInfo"
+				minOccurs="1" maxOccurs="1">
+			</element>
+			
+			<element name="InqList" type="exe-lib:T_InqDtlsInfo"
+				minOccurs="0" maxOccurs="1">
+			</element>
+		</sequence>
+		
+	</complexType>
+	
+	<complexType name="T_InqDtlsInfo">
+	
+		<sequence>
+			<element name="JntAcctsList" type="base:T_JntAcctsList"
+				minOccurs="0" maxOccurs="1">
+			</element>
+			
+			<element name="JntDepotsList" type="base:T_JntDepotsList"
+				minOccurs="0" maxOccurs="1">
+			</element>
+			
+			<element name="ShrsList" type="base:T_ShrsList"
+				minOccurs="0" maxOccurs="1">
+			</element>
+			
+		</sequence>
+		
+	</complexType>
+	
+	<complexType name="T_ExeDtlsInfo">
+	
+		<sequence>
+			<element name="AcctsList" type="exe-lib:T_ExeAcctsList"
+				minOccurs="0" maxOccurs="1">
+			</element>
+			
+			<element name="DepotsList" type="exe-lib:T_ExeDepotsList"
+				minOccurs="0" maxOccurs="1">
+			</element>
+			
+			<element name="SafInfo" type="exe-lib:T_ExeSafInfo"
+				minOccurs="0" maxOccurs="1">
+			</element>
+			
+		</sequence>
+		
+	</complexType>
+	
+	
+	<complexType name="T_ExeAcctsList">
+	
+		<sequence>
+			<element name="AccInfo" type="exe-lib:T_ExeAccInfo"
+				minOccurs="1" maxOccurs="unbounded">
+			</element>
+		</sequence>
+		
+	</complexType>
+		
+	<complexType name="T_ExeDepotsList">
+	
+		<sequence>
+			<element name="DepotInfo" type="exe-lib:T_ExeDepotInfo"
+				minOccurs="1" maxOccurs="unbounded">
+			</element>
+		</sequence>
+		
+	</complexType>
+	
+	<complexType name="T_ExeSafInfo">
+	
+		<sequence>
+			<element minOccurs="1" name="ExeDtTm"
+				type="base:T_MsgDtTm">
+			</element>
+		</sequence>
+		
+	</complexType>
+
+
+	<complexType name="T_ExeDepotInfo">
+	
+		<sequence>
+			<element name="DepotNum" minOccurs="1" maxOccurs="1">
+                <simpleType>
+                    <restriction base="base:T_NSPC_Text">
+                        <minLength value="4" />
+                        <maxLength value="24" />
+                    </restriction>
+                </simpleType>
+            </element>
+		
+            <element name="DepotCur" type="base:T_AccCur" minOccurs="1" maxOccurs="1"></element>
+             <element name="Amt" type="base:T_BaseAmt" minOccurs="1" maxOccurs="1"></element>
+             <element  name="ExeDtTm" type="base:T_MsgDtTm" minOccurs="1" maxOccurs="1"></element>
+		</sequence>
+		
+	</complexType>
+
+	
+	<complexType name="T_ExeXferList">
+	
+		<sequence>
+			<element name="XferInfo" type="exe-lib:T_ExeXferBlockInfo"
+				minOccurs="1" maxOccurs="unbounded">
+			</element>
+		</sequence>
+		
+	</complexType>
+
+	
+	<complexType name="T_GarnishSmryInfo">
+		<sequence>
+			<element name="TotAmt" type="base:T_BaseAmt" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="PndngAmt" type="base:T_BaseAmt" minOccurs="1"
+				maxOccurs="1">
+			</element>
+		</sequence>
+	</complexType>
+	
+		<complexType name="T_RPGarnishSmryInfo">
+		<sequence>
+			<element name="GarnishAmt" type="base:T_BaseAmt" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="PndngAmt" type="base:T_BaseAmt" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			
+			<element minOccurs="1" name="Status">
+				<simpleType>
+					<restriction base="string">
+						<length value="2"></length>
+						<enumeration value="01"></enumeration>
+						<enumeration value="02"></enumeration>
+					</restriction>
+				</simpleType>
+			</element>
+			
+		</sequence>
+	</complexType>
+	
+
+	<complexType name="T_RPBlockSmryInfo">
+		<sequence>
+			<element name="BlockAmt" type="base:T_BaseAmt" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="XferAmt" type="base:T_BaseAmt" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="PndngAmt" type="base:T_BaseAmt" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			
+			<element minOccurs="1" name="Status">
+				<simpleType>
+					<restriction base="string">
+						<length value="2"></length>
+						<enumeration value="01"></enumeration>
+						<enumeration value="02"></enumeration>
+						<enumeration value="03"></enumeration>
+						<enumeration value="04"></enumeration>
+					</restriction>
+				</simpleType>
+			</element>
+		</sequence>
+	</complexType>
+
+
+	<complexType name="T_ExeXferBlockInfo">
+		<sequence>
+			<element name="AccNum" type="base:T_AccountNumber"
+				minOccurs="1" maxOccurs="1">
+			</element>
+			<element name="IBAN" type="base:T_IBAN" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="Inst" type="base:T_FullName" minOccurs="0" maxOccurs="1"></element>
+			<element minOccurs="1" name="AccCur" type="base:T_AccCur"></element>
+			<element minOccurs="0" name="SrcAmt" type="base:T_BaseAmt"></element>
+			<element minOccurs="1" name="JntAcc" type="base:T_Flag"></element>
+			<element minOccurs="0" name="BlockAmt" type="base:T_BaseAmt"></element>
+			<element minOccurs="0" name="FXRate" type="base:T_BaseAmt_PosAmt"></element>
+			<element minOccurs="0" name="XferDtTm" type="base:T_MsgDtTm"></element>
+			<element minOccurs="0" name="RefNum">
+				<simpleType>
+					<restriction base="base:T_NSPC_EN_Text">
+						<minLength value="4"/>
+						<maxLength value="24"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element minOccurs="1" name="XferStatus">
+				<simpleType>
+					<restriction base="string">
+						<length value="2"></length>
+						<enumeration value="01"></enumeration>
+						<enumeration value="02"></enumeration>
+					</restriction>
+				</simpleType>
+			</element>
+			<element minOccurs="1" name="PrdUsrsList" type="base:T_PrdUsrsLis"></element>
+		</sequence>
+	</complexType>
+
+
+	<complexType name="T_GarnishDcsnInfo">
+		<sequence>
+			<element name="Num" type="base:T_Num" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="Dt" type="base:T_date" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="CsType" minOccurs="1" maxOccurs="1">
+
+				<simpleType>
+					<restriction base="string">
+						<enumeration value="01" />
+						<enumeration value="02" />
+						<enumeration value="03" />
+						<enumeration value="04" />
+						<enumeration value="05" />
+						<enumeration value="06" />
+					</restriction>
+				</simpleType>
+
+			</element>
+			<element name="DrtnType" minOccurs="1" maxOccurs="1">
+				<simpleType>
+					<restriction base="string">
+						<length value="2"></length>
+						<enumeration value="01"></enumeration>
+						<enumeration value="02"></enumeration>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="StrtDt" type="base:T_date" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element minOccurs="0" name="Drtn" type="exe-lib:T_Drtn"></element>
+			<element minOccurs="0" name="Amt" type="base:T_Amt"></element>
+			
+		</sequence>
+	</complexType>
+
+
+	<complexType name="T_BlockDcsnInfo">
+		<sequence>
+			<element name="Num" type="base:T_Num" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="Dt" type="base:T_date" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="DbtType" minOccurs="1" maxOccurs="1">
+
+				<simpleType>
+					<restriction base="string">
+						<enumeration value="01" />
+						<enumeration value="02" />
+						<enumeration value="03" />
+						<length value="2"></length>
+					</restriction>
+				</simpleType>
+
+			</element>
+			<element name="Amt" type="base:T_Amt" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			
+		</sequence>
+	</complexType>
+
+
+	<complexType name="T_DlngDcsnInfo">
+		<sequence>
+			<element name="Num" type="base:T_Num" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="Dt" type="base:T_date" minOccurs="1"
+				maxOccurs="1">
+			</element>
+
+		</sequence>
+	</complexType>
+	
+	
+	<complexType name="T_LiftDcsnInfo">
+		<sequence>
+			<element name="Num" type="base:T_Num" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="Dt" type="base:T_date" minOccurs="1"
+				maxOccurs="1">
+			</element>
+
+		</sequence>
+	</complexType>
+
+
+	<complexType name="T_ExeAccInfo">
+		<sequence>
+			<element name="AccNum" type="base:T_AccountNumber"
+				minOccurs="1" maxOccurs="1">
+			</element>
+			<element name="IBAN" type="base:T_IBAN" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="Inst" type="base:T_FullName" minOccurs="0" maxOccurs="1"></element>
+			<element minOccurs="1" name="AccCur" type="base:T_AccCur"></element>
+			<element minOccurs="1" name="SrcAmt"
+				type="base:T_BaseAmt">
+			</element>
+			<element minOccurs="1" name="JntAcc" type="base:T_Flag"></element>
+			<element minOccurs="1" name="BlockAmt"
+				type="base:T_BaseAmt">
+			</element>
+			<element minOccurs="1" name="FXRate"
+				type="base:T_BaseAmt_PosAmt">
+			</element>
+
+			<element minOccurs="1" name="BlockDtTm"
+				type="base:T_MsgDtTm">
+			</element>
+			<element minOccurs="1" name="PrdUsrsList" type="base:T_PrdUsrsLis"></element>
+		</sequence>
+	</complexType>
+
+
+
+	<complexType name="T_SrvcRefInfo">
+		<choice>
+			<element name="Tanfeeth" type="exe-lib:T_Tanfeeth"
+				minOccurs="1" maxOccurs="1">
+			</element>
+			<element name="PreTanfeeth" type="exe-lib:T_PreTanfeeth"
+				minOccurs="1" maxOccurs="1">
+			</element>
+
+		</choice>
+
+	</complexType>
+
+
+	<complexType name="T_FundXferCndtn">
+		<sequence>
+			<element name="Amt" type="base:T_BaseAmt_PosAmt" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="Benf" type="base:T_Benf" minOccurs="1"
+				maxOccurs="1">
+			</element>
+
+		</sequence>
+	</complexType>
+
+
+	<complexType name="T_Drtn">
+		<choice>
+			<element name="Prd" type="decimal" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="EndDt" type="base:T_date" minOccurs="1"
+				maxOccurs="1">
+			</element>
+
+		</choice>
+	</complexType>
+
+
+	<complexType name="T_Tanfeeth">
+		<sequence>
+			<element name="SRN" type="base:T_SRN" maxOccurs="1"
+				minOccurs="1">
+			</element>
+		</sequence>
+	</complexType>
+
+
+	<complexType name="T_PreTanfeeth">
+		<sequence>
+			<element name="SnetRN" type="base:T_Num" maxOccurs="1" minOccurs="0"></element>
+			<element name="LtrRN" type="base:T_Num" maxOccurs="1" minOccurs="0"></element>
+
+		</sequence>
+	</complexType>
+
+	<complexType name="T_RPBlockOutline">
+		<sequence>
+			<element name="DcsnInfo" type="exe-lib:T_BlockDcsnInfo" maxOccurs="1" minOccurs="1"></element>
+			<element name="ExePlan" type="exe-lib:T_ExePlan" maxOccurs="1" minOccurs="1"></element>
+			<element name="Benf" type="base:T_Benf" maxOccurs="1" minOccurs="1"></element>
+			<element name="AutoXfer" type="base:T_Flag" maxOccurs="1" minOccurs="1"></element>
+
+		</sequence>
+	</complexType>
+	
+	<complexType name="T_RPGarnishOutline">
+		<sequence>
+			<element name="DcsnInfo" type="exe-lib:T_GarnishDcsnInfo" maxOccurs="1" minOccurs="1"></element>
+			<element name="ExePlan" type="exe-lib:T_ExePlan" maxOccurs="1" minOccurs="1"></element>
+			
+		</sequence>
+	</complexType>
+
+
+
+	<complexType name="T_ExePlan">
+		<choice>
+			<element name="AccId" type="base:T_AccId" maxOccurs="1" minOccurs="1"></element>
+			<element name="TrgtPrds" type="exe-lib:T_ExeTrgtPrds" maxOccurs="1" minOccurs="1"></element>
+				
+		</choice>
+	</complexType>
+
+	<complexType name="T_ExeTrgtPrds">
+		<sequence>
+			<element name="Accts"  maxOccurs="1" minOccurs="1">
+			
+			<simpleType>
+				<restriction base="string">
+				<length value="1" />
+				<pattern value="[y]{1}" />
+				</restriction>
+			</simpleType>
+			
+			</element>
+			<element name="Depots" maxOccurs="1" minOccurs="0">
+				<simpleType>
+					<restriction base="string">
+					<length value="1" />
+					<pattern value="[y]{1}" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="Safs" maxOccurs="1" minOccurs="0">
+				<simpleType>
+					<restriction base="string">
+					<length value="1" />
+					<pattern value="[y]{1}" />
+					</restriction>
+				</simpleType>
+			</element>
+
+		</sequence>
+	</complexType>
+
+
+	<complexType name="T_ExeSmryInfo">
+		<sequence>
+			<element name="TotAmt" type="base:T_BaseAmt" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="PndngAmt" type="base:T_BaseAmt" minOccurs="1"
+				maxOccurs="1">
+			</element>
+		</sequence>
+	</complexType>
+	
+	
+		<complexType name="T_BlockSmryInfo">
+		<sequence>
+			<element name="TotAmt" type="base:T_BaseAmt" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="XferAmt" type="base:T_BaseAmt" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="PndngAmt" type="base:T_BaseAmt" minOccurs="1"
+				maxOccurs="1">
+			</element>
+		</sequence>
+	</complexType>
+	
+	
+	<complexType name="T_FIBlockSmryInfo">
+		<sequence>
+			<element name="AcctsSmryInfo" type="exe-lib:T_ExeAcctsSmryInfo" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="DepotsSmryInfo" type="exe-lib:T_ExeDepotsSmryInfo" minOccurs="0"
+				maxOccurs="1">
+			</element>
+			<element name="SafsSmryInfo" type="exe-lib:T_ExeSafsSmryInfo" minOccurs="0"
+				maxOccurs="1">
+			</element>
+			<element name="Totals" type="exe-lib:T_ExeTotalsInfo" minOccurs="1"
+				maxOccurs="1">
+			</element>
+		</sequence>
+	</complexType>
+	
+	<complexType name="T_ExeAcctsSmryInfo">
+		<sequence>
+			<element name="hasAccts" type="base:T_Flag" maxOccurs="1" minOccurs="1"></element>
+			<element name="hasJntAccts" type="base:T_Flag" maxOccurs="1" minOccurs="1"></element>
+
+		</sequence>
+	</complexType>
+	
+	<complexType name="T_ExeDepotsSmryInfo">
+		<sequence>
+			<element name="hasDepots" type="base:T_Flag" maxOccurs="1" minOccurs="1"></element>
+			<element name="hasJntDepots" type="base:T_Flag" maxOccurs="1" minOccurs="1"></element>
+
+		</sequence>
+	</complexType>
+	
+	<complexType name="T_ExeTotalsInfo">
+		<sequence>
+			<element name="TotAmt" type="base:T_BaseAmt" maxOccurs="1" minOccurs="1"></element>
+			<element name="AmtSAR" type="base:T_BaseAmt" maxOccurs="1" minOccurs="1"></element>
+			<element name="AmtRqCur" type="base:T_BaseAmt" maxOccurs="1" minOccurs="1"></element>
+
+		</sequence>
+	</complexType>
+
+	<complexType name="T_ExeSafsSmryInfo">
+		<sequence>
+			<element name="hasSafs" type="base:T_Flag" maxOccurs="1" minOccurs="1"></element>
+			
+
+		</sequence>
+	</complexType>
+	
+	<complexType name="T_GarnishDtlsInfo">
+	
+		<sequence>
+			
+			<element name="GarnishExeDtlsInfo" type="exe-lib:T_GarnishExeDtlsInfo" minOccurs="0" maxOccurs="1"></element>
+			<element name="InqDtlsInfo" type="exe-lib:T_InqDtlsInfo" minOccurs="0" maxOccurs="1"></element>
+		</sequence>
+		
+		
+	</complexType>
+	
+	
+	<complexType name="T_GarnishExeDtlsInfo">
+	
+		<choice>
+			
+			<element name="DtlsInfo" type="exe-lib:T_ExeDtlsInfo" maxOccurs="1" minOccurs="0"></element>
+			<element name="DtlsInfoNF" type="exe-lib:T_ExeDtlsInfoNF" minOccurs="0" maxOccurs="1"></element>
+		</choice>
+		
+		
+	</complexType>
+	
+	
+	<complexType name="T_ExeDtlsInfoNF">
+	
+		<sequence>
+			<element name="AcctsList" type="exe-lib:T_ExeAcctsListNF"
+				minOccurs="0" maxOccurs="1">
+			</element>
+			
+			<element name="DepotsList" type="exe-lib:T_ExeDepotsListNF"
+				minOccurs="0" maxOccurs="1">
+			</element>
+			
+			<element name="SafInfo" type="exe-lib:T_ExeSafInfo"
+				minOccurs="0" maxOccurs="1">
+			</element>
+			
+		</sequence>
+		
+	</complexType>
+	
+	<complexType name="T_ExeAcctsListNF">
+	
+		<sequence>
+			<element name="AccInfo" type="exe-lib:T_ExeAccInfoNF"
+				minOccurs="1" maxOccurs="unbounded">
+			</element>
+		</sequence>
+		
+	</complexType>
+		
+	<complexType name="T_ExeDepotsListNF">
+	
+		<sequence>
+			<element name="DepotInfo" type="exe-lib:T_ExeDepotInfoNF"
+				minOccurs="1" maxOccurs="unbounded">
+			</element>
+		</sequence>
+		
+	</complexType>
+	
+		
+	<complexType name="T_ExeDepotInfoNF">
+	
+		<sequence>
+			<element name="DepotNum" minOccurs="1" maxOccurs="1">
+                <simpleType>
+                    <restriction base="base:T_NSPC_Text">
+                        <minLength value="4" />
+                        <maxLength value="24" />
+                    </restriction>
+                </simpleType>
+            </element>
+             <element  name="ExeDtTm" type="base:T_MsgDtTm" minOccurs="1" maxOccurs="1"></element>
+		</sequence>
+		
+	</complexType>
+		
+		
+	<complexType name="T_ExeAccInfoNF">
+		<sequence>
+			<element name="AccNum" type="base:T_AccountNumber" minOccurs="1" maxOccurs="1"> </element>
+			
+			<element name="IBAN" type="base:T_IBAN" minOccurs="1" maxOccurs="1"></element>
+			
+			<element name="Inst" type="base:T_FullName" minOccurs="0" maxOccurs="1"></element>
+			
+			<element minOccurs="1" name="JntAcc" type="base:T_Flag"></element>
+			
+			<element minOccurs="1" name="BlockDtTm" type="base:T_MsgDtTm"></element>
+			
+			<element minOccurs="1" name="PrdUsrsList" type="base:T_PrdUsrsLis"></element>
+		</sequence>
+	</complexType>
+		
+	<complexType name="T_FIGarnishOutline">
+		<sequence>
+		
+		<element name="DcsnInfo" type="exe-lib:T_GarnishDcsnInfo"
+				maxOccurs="1" minOccurs="1">
+			</element>
+			
+			<element name="ExePlan" type="exe-lib:T_ExePlan" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="PndngAmt" type="base:T_BaseAmt"
+				maxOccurs="1" minOccurs="0">
+			</element>
+
+			<element name="ReqExeInfo" type="exe-lib:T_ReqExeInfo"
+				maxOccurs="1" minOccurs="0">
+			</element>
+					
+			<element name="ReqInqInfo" type="exe-lib:T_ReqInqInfo"
+				maxOccurs="1" minOccurs="0">
+			</element>
+
+		</sequence>
+	</complexType>	
+	
+	
+	<complexType name="T_FIGarnishSmryInfo">
+		<sequence>
+			<element name="AcctsSmryInfo" type="exe-lib:T_ExeAcctsSmryInfo" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="DepotsSmryInfo" type="exe-lib:T_ExeDepotsSmryInfo" minOccurs="0"
+				maxOccurs="1">
+			</element>
+			<element name="SafsSmryInfo" type="exe-lib:T_ExeSafsSmryInfo" minOccurs="0"
+				maxOccurs="1">
+			</element>
+			<element name="Totals" type="exe-lib:T_ExeTotalsInfo" minOccurs="0"
+				maxOccurs="1">
+			</element>
+		</sequence>
+	</complexType>
+		
+	<complexType name="T_DenyDlngOutline">
+		<sequence>
+			<element name="DcsnInfo" type="exe-lib:T_DlngDcsnInfo"
+				maxOccurs="1" minOccurs="1">
+			</element>
+		</sequence>
+	</complexType>
+	
+	<complexType name="T_BanDlngOutline">
+		<sequence>
+			<element name="DcsnInfo" type="exe-lib:T_DlngDcsnInfo"
+				maxOccurs="1" minOccurs="1">
+			</element>
+		</sequence>
+	</complexType>
+		
+		
+	<complexType name="T_RPLiftOutline">
+		<sequence>
+		
+		<element name="DcsnInfo" type="exe-lib:T_LiftDcsnInfo" maxOccurs="1" minOccurs="1"></element>
+			
+			
+			<element name="SrvcRefInfo" type="exe-lib:T_SrvcRefInfo" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			
+			<element name="ExePlan" type="exe-lib:T_RPLiftExePlan" minOccurs="1"
+				maxOccurs="1">
+			</element>
+		<element name="BlockLiftCndtn" type="exe-lib:T_BlockLiftCndtn" maxOccurs="1" minOccurs="0"></element>
+
+		</sequence>
+	</complexType>	
+		
+		
+		<complexType name="T_FILiftOutline">
+		<sequence>
+		
+		<element name="DcsnInfo" type="exe-lib:T_LiftDcsnInfo" maxOccurs="1" minOccurs="1"></element>
+			
+			
+			<element name="SrvcRefInfo" type="exe-lib:T_SrvcRefInfo" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			
+			<element name="ExePlan" type="exe-lib:T_FILiftExePlan" minOccurs="1"
+				maxOccurs="1">
+			</element>
+		<element name="BlockLiftCndtn" type="exe-lib:T_BlockLiftCndtn" maxOccurs="1" minOccurs="0"></element>
+
+		</sequence>
+	</complexType>	
+		
+		
+	<complexType name="T_RPLiftExePlan">
+		<choice>
+			<element name="Full" type="exe-lib:T_RPLiftFull" minOccurs="1"
+				maxOccurs="1">
+			</element>
+		
+			<element name="Part" type="exe-lib:T_LiftPart" minOccurs="1"
+				maxOccurs="1">
+			</element>
+		</choice>
+	</complexType>
+		
+		
+	<complexType name="T_FILiftExePlan">
+		<choice>
+			<element name="Full" type="exe-lib:T_FILiftFull" minOccurs="1"
+				maxOccurs="1">
+			</element>
+		
+			<element name="Part" type="exe-lib:T_LiftPart" minOccurs="1"
+				maxOccurs="1">
+			</element>
+		</choice>
+	</complexType>	
+	
+		<complexType name="T_FILiftFull">
+		<choice>
+			<element name="InvPrty" type="base:T_InvPrty" minOccurs="1"
+				maxOccurs="1">
+			</element>
+		
+			<element name="AccId" type="base:T_AccId" minOccurs="1"
+				maxOccurs="1">
+			</element>
+		</choice>
+	</complexType>
+		
+	<complexType name="T_RPLiftFull">
+		<choice>
+			<element name="InvPrty" type="base:T_RpInvPrty" minOccurs="1"
+				maxOccurs="1">
+			</element>
+		
+			<element name="AccId" type="base:T_AccId" minOccurs="1"
+				maxOccurs="1">
+			</element>
+		</choice>
+	</complexType>
+	
+	<complexType name="T_LiftPart">
+		<choice>
+			<element name="AccId" type="base:T_AccId" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="Depot" type="base:T_Depot" minOccurs="1"
+				maxOccurs="1">
+			</element>
+		</choice>
+	</complexType>
+
+	<complexType name="T_RPTransferOutline">
+		<sequence>
+			<element name="XferFinInfo" type="exe-lib:T_XferFinInfo" minOccurs="0" maxOccurs="1"></element>
+			<element name="XferDcsnInfo" type="exe-lib:T_XferDcsnInfo" minOccurs="1" maxOccurs="1"></element>
+			<element name="RuleInfo" type="exe-lib:T_RuleInfo" minOccurs="0" maxOccurs="1"></element>
+		</sequence>
+	</complexType>
+	
+	<complexType name="T_FITransferOutline">
+		<sequence>
+			<element name="AccId" type="base:T_AccId" minOccurs="0" maxOccurs="1"></element>
+			<element name="Amt" type="base:T_Amt" minOccurs="0" maxOccurs="1"></element>
+			<element name="XferDcsnInfo" type="exe-lib:T_XferDcsnInfo" minOccurs="1" maxOccurs="1"></element>
+			<element name="RuleInfo" type="exe-lib:T_RuleInfo" minOccurs="0" maxOccurs="1"></element>
+		</sequence>
+	</complexType>
+	
+	<complexType name="T_XferFinInfo">
+		<choice>
+			<element name="AccFinInfo" type="exe-lib:T_AccFinInfo" minOccurs="0" maxOccurs="1"></element>
+			<element name="FIListFinInfo" type="exe-lib:T_FIListFinInfo" minOccurs="0" maxOccurs="1"></element>
+		</choice>
+	</complexType>
+	
+	<complexType name="T_AccFinInfo">
+		<sequence>
+			<element name="AccId" type="base:T_AccId" minOccurs="1" maxOccurs="1"></element>
+			<element name="Amt" type="base:T_Amt" minOccurs="0" maxOccurs="1"></element>
+		</sequence>
+	</complexType>
+	
+	<complexType name="T_FIListFinInfo">
+		<sequence>
+			<element name="FIFinInfo" type="exe-lib:T_FIFinInfo" minOccurs="1" maxOccurs="unbounded"></element>
+		</sequence>
+	</complexType>
+	
+	<complexType name="T_FIFinInfo">
+		<sequence>
+			<element name="FICode" minOccurs="1" maxOccurs="1">
+				<simpleType>
+					<restriction base="string">
+						<length value="5" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="Amt" type="base:T_Amt" minOccurs="1" maxOccurs="1"></element>
+		</sequence>
+	</complexType>
+	
+	<complexType name="T_XferDcsnInfo">
+		<choice>
+			<element name="SrvcRefInfo" type="exe-lib:T_SrvcRefInfo" minOccurs="1" maxOccurs="1"></element>
+			<element name="CaseInfo" type="exe-lib:T_CaseInfo" minOccurs="1" maxOccurs="1"></element>
+		</choice>
+	</complexType>
+	
+	<complexType name="T_CaseInfo">
+		<sequence>
+			<element name="Num" minOccurs="1" maxOccurs="1">
+				<simpleType>
+					<restriction base="string">
+						<minLength value="1" />
+						<maxLength value="30" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="CsType" minOccurs="1" maxOccurs="1">
+				<simpleType>
+					<restriction base="string">
+						<length value="2" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="Dt" type="base:T_date" minOccurs="1" maxOccurs="1"></element>
+		</sequence>
+	</complexType>
+	
+	<complexType name="T_RuleInfo">
+		<sequence>
+			<element name="Num" minOccurs="1" maxOccurs="1">
+				<simpleType>
+					<restriction base="string">
+						<minLength value="1" />
+						<maxLength value="30" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="IssuingEntity" minOccurs="1" maxOccurs="1">
+				<simpleType>
+					<restriction base="string">
+						<minLength value="5" />
+						<maxLength value="50" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="Dt" type="base:T_date" minOccurs="1" maxOccurs="1"></element>
+			<element name="final" minOccurs="1" maxOccurs="1">
+				<simpleType>
+					<restriction base="string">
+						<length value="1" />
+						<pattern value="[y]{1}" />
+					</restriction>
+				</simpleType>
+			</element>
+		</sequence>
+	</complexType>
+		
+	<simpleType name="T_SAMANote">
+		<restriction base="string">
+			<minLength value="10" />
+			<maxLength value="250" />
+		</restriction>
+	</simpleType>
+
+</schema>

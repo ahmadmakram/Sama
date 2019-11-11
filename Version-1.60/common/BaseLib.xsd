@@ -1,0 +1,1055 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://www.sama.bea.sa/common/BaseLib"
+	elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:base="http://www.sama.bea.sa/common/BaseLib">
+
+	<complexType name="T_MsgList">
+		<sequence>
+			<element name="Code" type="base:T_StatusCode" minOccurs="1"
+				maxOccurs="unbounded">
+			</element>
+		</sequence>
+	</complexType>
+
+	<complexType name="T_Rqstr">
+		<sequence>
+			<element name="PID" minOccurs="1" maxOccurs="1">
+				<simpleType>
+					<restriction base="string">
+						<length value="5" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="RID" minOccurs="1" maxOccurs="1">
+				<simpleType>
+					<restriction base="base:T_NSPC">
+						<minLength value="2" />
+						<maxLength value="20" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="Name" minOccurs="1" maxOccurs="1">
+				<simpleType>
+					<restriction base="base:T_AnyName">
+						<minLength value="1" />
+						<maxLength value="50" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="Pstn" minOccurs="1" maxOccurs="1">
+				<simpleType>
+					<restriction base="base:T_NSPC">
+						<minLength value="1" />
+						<maxLength value="50" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="RRN" minOccurs="1" maxOccurs="1">
+				<simpleType>
+					<restriction base="base:T_NSPC">
+						<minLength value="2" />
+						<maxLength value="30" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="GeoLoc" minOccurs="1" maxOccurs="1">
+				<simpleType>
+					<restriction base="string">
+						<length value="18" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="GeoLocDsc" minOccurs="0" maxOccurs="1">
+				<simpleType>
+					<restriction base="base:T_NSPC">
+						<minLength value="1" />
+						<maxLength value="200" />
+					</restriction>
+				</simpleType>
+			</element>
+		</sequence>
+	</complexType>
+
+	<complexType name="T_InvPrty">
+		<choice>
+			<element name="Indv" type="base:T_Individual" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="Corp" type="base:T_Corporate" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="Gov" type="base:T_Government" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="Chrty" type="base:T_Charity" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="Chmbr" type="base:T_Chamber" minOccurs="1"
+				maxOccurs="1">
+			</element>
+		</choice>
+	</complexType>
+
+	<complexType name="T_RpInvPrty">
+		<choice>
+			<element name="Indv" type="base:T_RpIndv" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="Corp" type="base:T_RpCorp" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="Gov" type="base:T_RpGov" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="Chrty" type="base:T_RpChrty" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="Chmbr" type="base:T_RpChmbr" minOccurs="1"
+				maxOccurs="1">
+			</element>
+		</choice>
+	</complexType>
+
+	<complexType name="T_RpIndv">
+		<sequence>
+			<element name="RpId" type="base:T_RpIndvId" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="frstName" type="base:T_Name" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="scndName" type="base:T_Name" minOccurs="0"
+				maxOccurs="1">
+			</element>
+			<element name="thrdName" type="base:T_Name" minOccurs="0"
+				maxOccurs="1">
+			</element>
+			<element name="lstName" type="base:T_Name" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="Ntnlty" type="base:T_NtnltyType"
+				minOccurs="0" maxOccurs="1">
+			</element>
+		</sequence>
+	</complexType>
+
+	<complexType name="T_RpIndvId">
+		<choice>
+			<element name="ID_NID" type="base:T_ID_NID" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="ID_KWT" type="base:T_ID_KWT" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="ID_ARE" type="base:T_ID_ARE" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="ID_QAT" type="base:T_ID_QAT" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="ID_BHR" type="base:T_ID_BHR" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="ID_OMN" type="base:T_ID_OMN" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="ID_RID" type="base:T_ID_RID" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="ID_SP" type="base:T_ID_SP" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="ID_DP" type="base:T_ID_DP" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="ID_GCCP" type="base:T_ID_SP" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="ID_PP" type="base:T_ID_SP" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="ID_FP" type="base:T_ID_SP" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="ID_HN" type="base:T_ID_DP" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="ID_FC" type="base:T_ID_DP" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="ID_VID" type="base:T_ID_VID" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="ID_DC" type="base:T_ID_SP" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="ID_ERV" type="base:T_ID_ERV" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="ID_FEV" type="base:T_ID_ERV" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="ID_TWV" type="base:T_ID_DP" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="ID_EV" type="base:T_ID_ERV" minOccurs="1"
+				maxOccurs="1">
+			</element>
+
+		</choice>
+	</complexType>
+
+
+	<complexType name="T_RpCorp">
+		<sequence>
+			<element name="RpId" type="base:T_RpCorpId" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="Name" type="base:T_FullName" minOccurs="1"
+				maxOccurs="1">
+			</element>
+		</sequence>
+	</complexType>
+
+
+	<complexType name="T_RpCorpId">
+		<choice>
+			<element name="ID_CRN" type="base:T_ID_VID" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="ID_WPL" type="base:T_ID_DP" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="ID_EC" type="base:T_ID_DP" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="ID_LOL" type="base:T_ID_LOL" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="ID_ML" type="base:T_ID_LOL" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="ID_PL" type="base:T_ID_LOL" minOccurs="1"
+				maxOccurs="1">
+			</element>
+		</choice>
+	</complexType>
+
+	<complexType name="T_RpGov">
+		<sequence>
+			<element name="RpId" type="base:T_RpGovId" minOccurs="0"
+				maxOccurs="1">
+			</element>
+			<element name="Name" type="base:T_FullName" minOccurs="1"
+				maxOccurs="1">
+			</element>
+		</sequence>
+	</complexType>
+
+	<complexType name="T_RpGovId">
+		<sequence>
+			<element name="ID_GID" type="base:T_ID_LOL" minOccurs="1"
+				maxOccurs="1">
+			</element>
+		</sequence>
+	</complexType>
+
+	<complexType name="T_RpChrty">
+		<sequence>
+			<element name="RpId" type="base:T_RpChrtyId" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="Name" type="base:T_FullName" minOccurs="1"
+				maxOccurs="1">
+			</element>
+		</sequence>
+	</complexType>
+
+
+	<complexType name="T_RpChrtyId">
+		<choice>
+			<element name="ID_WPL" type="base:T_ID_DP" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="ID_ML" type="base:T_ID_LOL" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="ID_PL" type="base:T_ID_LOL" minOccurs="1"
+				maxOccurs="1">
+			</element>
+		</choice>
+	</complexType>
+
+	<complexType name="T_RpChmbr">
+		<sequence>
+			<element name="RpId" type="base:T_RpChmbrId" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="Name" type="base:T_FullName" minOccurs="1"
+				maxOccurs="1">
+			</element>
+		</sequence>
+	</complexType>
+
+	<complexType name="T_RpChmbrId">
+		<sequence>
+			<element name="ID_COCL" type="base:T_ID_DP" minOccurs="1"
+				maxOccurs="1">
+			</element>
+		</sequence>
+	</complexType>
+
+	<complexType name="T_CustInfo">
+		<sequence>
+			<element name="CustName" minOccurs="1" maxOccurs="1">
+				<simpleType>
+					<restriction base="base:T_AnyName">
+						<minLength value="2" />
+						<maxLength value="100" />
+					</restriction>
+				</simpleType>
+			</element>
+
+			<element name="Id" type="base:T_Id" minOccurs="1" maxOccurs="1"></element>
+			<element name="IdType" type="base:T_IdTypeIndividual"
+				minOccurs="1" maxOccurs="1">
+			</element>
+			
+			<element name="Ntnlty" minOccurs="0" maxOccurs="1">
+				<simpleType>
+					<restriction base="string">
+						<length value="3" />
+					</restriction>
+				</simpleType>
+			</element>
+
+		</sequence>
+	</complexType>
+
+
+	<complexType name="T_Individual">
+		<sequence>
+			<element name="Id" type="base:T_Id" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="IdType" type="base:T_IdTypeIndividual"
+				minOccurs="1" maxOccurs="1">
+			</element>
+			<element name="frstName" type="base:T_Name" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="scndName" type="base:T_Name" minOccurs="0"
+				maxOccurs="1">
+			</element>
+			<element name="thrdName" type="base:T_Name" minOccurs="0"
+				maxOccurs="1">
+			</element>
+			<element name="lstName" type="base:T_Name" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="Ntnlty" type="base:T_NtnltyType"
+				minOccurs="0" maxOccurs="1">
+			</element>
+		</sequence>
+	</complexType>
+
+	<complexType name="T_Corporate">
+		<sequence>
+			<element name="Id" type="base:T_Id" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="IdType" type="base:T_IdTypeCorporate"
+				minOccurs="1" maxOccurs="1">
+			</element>
+			<element name="Name" type="base:T_FullName" minOccurs="1"
+				maxOccurs="1">
+			</element>
+		</sequence>
+	</complexType>
+
+	<complexType name="T_Government">
+		<sequence>
+			<element name="Id" type="base:T_Id" minOccurs="0"
+				maxOccurs="1">
+			</element>
+			<element name="IdType" type="base:T_IdTypeGovernment"
+				minOccurs="0" maxOccurs="1">
+			</element>
+			<element name="Name" type="base:T_FullName" minOccurs="1"
+				maxOccurs="1">
+			</element>
+		</sequence>
+	</complexType>
+
+	<complexType name="T_Charity">
+		<sequence>
+			<element name="Id" type="base:T_Id" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="IdType" type="base:T_IdTypeCharity"
+				minOccurs="1" maxOccurs="1">
+			</element>
+			<element name="Name" type="base:T_FullName" minOccurs="1"
+				maxOccurs="1">
+			</element>
+		</sequence>
+	</complexType>
+
+	<complexType name="T_Chamber">
+		<sequence>
+			<element name="Id" type="base:T_Id" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="IdType" type="base:T_IdTypeChamber"
+				minOccurs="1" maxOccurs="1">
+			</element>
+			<element name="Name" type="base:T_FullName" minOccurs="1"
+				maxOccurs="1">
+			</element>
+		</sequence>
+	</complexType>
+
+	<complexType name="T_ThrdPrty">
+		<sequence>
+			<element name="Id" type="base:T_Id" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="IdType" type="base:T_IdTypeIndividual"
+				minOccurs="1" maxOccurs="1">
+			</element>
+			<element name="Name" type="base:T_FullName" minOccurs="1"
+				maxOccurs="1">
+			</element>
+		</sequence>
+	</complexType>
+
+	<complexType name="T_FinInst">
+		<choice>
+			<element name="FIList" type="base:T_FIList" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="FIGCode" type="base:T_FIGroupCode"
+				minOccurs="1" maxOccurs="1">
+			</element>
+		</choice>
+	</complexType>
+
+	<complexType name="T_FIList">
+		<sequence>
+			<element name="FICode" minOccurs="1"
+				maxOccurs="unbounded">
+				<simpleType>
+					<restriction base="string">
+						<length value="5" />
+					</restriction>
+				</simpleType>
+			</element>
+		</sequence>
+	</complexType>
+
+	<simpleType name="T_FIGroupCode">
+		<restriction base="string">
+			<length value="3" />
+		</restriction>
+	</simpleType>
+
+	<complexType name="T_Pg">
+		<sequence>
+			<element name="PgSize" type="integer" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="Strt" type="integer" minOccurs="0"
+				maxOccurs="1">
+			</element>
+		</sequence>
+	</complexType>
+
+	<complexType name="T_Pgn">
+		<sequence>
+			<element name="Itms" type="integer" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="rtnItms" type="integer" minOccurs="1"
+				maxOccurs="1">
+			</element>
+		</sequence>
+	</complexType>
+
+	<complexType name="T_Attributes">
+		<sequence>
+			<element name="Attribute" type="base:T_Attribute"
+				minOccurs="1" maxOccurs="unbounded">
+			</element>
+		</sequence>
+	</complexType>
+
+	<complexType name="T_Attribute">
+		<sequence>
+			<element name="Name" type="base:T_AttrName" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="Value" type="base:T_FullName" minOccurs="1"
+				maxOccurs="1">
+			</element>
+		</sequence>
+	</complexType>
+
+
+	<simpleType name="T_Name">
+		<restriction base="base:T_AnyName">
+			<minLength value="2" />
+			<maxLength value="25" />
+		</restriction>
+	</simpleType>
+	<simpleType name="T_FICode">
+		<restriction base="string">
+			<length value="5" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="T_FullName">
+		<restriction base="base:T_AnyName">
+			<minLength value="2" />
+			<maxLength value="100" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="T_Id">
+		<restriction base="base:T_NSPC_Text">
+			<minLength value="4" />
+			<maxLength value="20" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="T_NtnltyType">
+		<restriction base="string">
+			<length value="3" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="T_IdTypeIndividual">
+		<restriction base="string">
+			<minLength value="2" />
+			<maxLength value="10" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="T_IdTypeCorporate">
+		<restriction base="string">
+			<minLength value="2" />
+			<maxLength value="10" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="T_IdTypeGovernment">
+		<restriction base="string">
+			<minLength value="2" />
+			<maxLength value="10" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="T_IdTypeChamber">
+		<restriction base="string">
+			<minLength value="2" />
+			<maxLength value="10" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="T_PrdctUserIdType">
+		<restriction base="string">
+			<minLength value="2" />
+			<maxLength value="10" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="T_IdTypeCharity">
+		<restriction base="string">
+			<minLength value="2" />
+			<maxLength value="10" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="T_IdTypeFixed">
+		<restriction base="string">
+			<length value="5" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="T_AccStatus">
+		<restriction base="string">
+			<enumeration value="01" />
+			<enumeration value="02" />
+			<enumeration value="03" />
+			<enumeration value="04" />
+			<enumeration value="05" />
+			<enumeration value="06" />
+			<enumeration value="07" />
+		</restriction>
+	</simpleType>
+
+
+
+	<simpleType name="T_DepotStatus">
+		<restriction base="base:T_NSPC">
+			<minLength value="1" />
+			<maxLength value="20" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="T_AccountNumber">
+		<restriction base="base:T_NSPC_EN_Text">
+			<minLength value="4" />
+			<maxLength value="24" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="T_IBAN">
+		<restriction base="string">
+			<length value="24" />
+			<pattern value="SA[0-9]{4}[A-Za-z0-9]{18}" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="T_AccCur">
+		<restriction base="string">
+			<pattern value="[A-Z]{3}" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="T_Balance">
+		<restriction base='decimal'>
+			<minExclusive value="-99999999999999999999"></minExclusive>
+			<maxExclusive value="99999999999999999999"></maxExclusive>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="T_date">
+		<restriction base="string">
+			<minLength value="0" />
+			<pattern value="[0-9]{4}-[0-9]{2}-[0-9]{2}" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="T_Prcnt">
+		<restriction base='decimal'>
+			<totalDigits value='9' />
+			<fractionDigits value='6' />
+			<minInclusive value='00.000001' />
+			<maxInclusive value='100.00' />
+		</restriction>
+	</simpleType>
+
+	<!--Header Common Types -->
+
+	<simpleType name="T_MsgDtTm">
+		<restriction base="string">
+			<length value="19" />
+			<pattern
+				value="[0-9]{4}-[0-9]{2}-[0-9]{2}(T[0-9]{2}:[0-9]{2}(:[0-9]{2}(\.[0-9]{6})?((-|\+)[0-9]{2}:[0-9]{2})?)?)?" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="T_CRN">
+		<restriction base="string">
+			<minLength value="5" />
+			<maxLength value="50" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="T_RRN">
+		<restriction base="string">
+			<minLength value="1" />
+			<maxLength value="30" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="T_SRN">
+		<restriction base="string">
+			<minLength value="5" />
+			<maxLength value="50" />
+		</restriction>
+	</simpleType>
+
+
+	<simpleType name="T_ChID">
+		<restriction base="string">
+			<enumeration value="B2B" />
+			<enumeration value="Portal" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="T_StatusCode">
+		<restriction base="string">
+			<length value="8" />
+			<pattern value="[SE][0-9]{7}" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="T_AttrName">
+		<restriction base="string">
+			<minLength value="1" />
+			<maxLength value="30" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="T_IdTypeLong">
+		<restriction base="string">
+			<minLength value="5" />
+			<maxLength value="30" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="T_InstRept">
+		<restriction base="string">
+			<enumeration value="01" />
+			<enumeration value="02" />
+			<enumeration value="03" />
+			<enumeration value="04" />
+		</restriction>
+	</simpleType>
+
+	<complexType name="T_RsrvInfo">
+		<sequence>
+			<element name="RsrvAmt" type="base:T_Balance" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="Cur" type="base:T_AccCur" minOccurs="0"
+				maxOccurs="1">
+			</element>
+			<element name="RsrvBy" type="base:T_FullName" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="RRN" minOccurs="1" maxOccurs="1">
+				<simpleType>
+					<restriction base="string">
+						<minLength value="2" />
+						<maxLength value="30" />
+					</restriction>
+				</simpleType>
+			</element>
+		</sequence>
+	</complexType>
+
+	<complexType name="T_RsrvList">
+		<sequence>
+			<element name="RsrvInfo" type="base:T_RsrvInfo"
+				minOccurs="1" maxOccurs="unbounded">
+			</element>
+		</sequence>
+	</complexType>
+
+
+	<simpleType name="T_ID_NID">
+		<restriction base="string">
+			<length value="10" />
+			<pattern value="[1][0-9]+" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="T_ID_KWT">
+		<restriction base="string">
+			<length value="12" />
+			<pattern value="[0-9]+" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="T_ID_ARE">
+		<restriction base="string">
+			<length value="15" />
+			<pattern value="[0-9]+" />
+		</restriction>
+	</simpleType>
+
+
+	<simpleType name="T_ID_QAT">
+		<restriction base="string">
+			<length value="11" />
+			<pattern value="[0-9]+" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="T_ID_BHR">
+		<restriction base="string">
+			<length value="9" />
+			<pattern value="[0-9]+" />
+		</restriction>
+	</simpleType>
+
+
+	<simpleType name="T_ID_OMN">
+		<restriction base="string">
+			<length value="8" />
+			<pattern value="[0-9]+" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="T_ID_RID">
+		<restriction base="string">
+			<length value="10" />
+			<pattern value="[2][0-9]+" />
+		</restriction>
+	</simpleType>
+
+
+	<simpleType name="T_ID_SP">
+		<restriction base="string">
+			<minLength value="4" />
+			<maxLength value="20" />
+			<pattern value="[A-Za-z0-9]+" />
+		</restriction>
+	</simpleType>
+
+
+	<simpleType name="T_ID_DP">
+		<restriction base="string">
+			<minLength value="4" />
+			<maxLength value="20" />
+			<pattern value="[0-9]+" />
+		</restriction>
+	</simpleType>
+
+
+
+	<simpleType name="T_ID_VID">
+		<restriction base="string">
+			<length value="10" />
+			<pattern value="[0-9]+" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="T_ID_ERV">
+		<restriction base="string">
+			<minLength value="4" />
+			<maxLength value="12" />
+			<pattern value="[0-9]+" />
+		</restriction>
+	</simpleType>
+
+
+	<simpleType name="T_ID_LOL">
+		<restriction base="string">
+			<minLength value="4" />
+			<maxLength value="20" />
+			<pattern value="[0-9ا-ي ]+" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="T_NSPC">
+<!--  		<annotation>
+			<documentation>Non special Chars Except - <documentation>
+		<annotation>-->
+		<restriction base="string">
+		    <pattern value="[^!@#$%?*/^\\(){}+=_|\[\];&lt;&gt;&quot;&apos;&amp;]+" />
+		</restriction>
+	</simpleType>
+
+
+	<simpleType name="T_NSPC_Text">
+	<!--	<annotation>
+			<documentation>Non special Chars text<documentation>
+		<annotation>-->
+		<restriction base="string">
+			<pattern value="[A-Za-z0-9ا-ي ]+" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="T_NSPC_EN_Text">
+<!-- 		<annotation>
+			<documentation>Non special Chars text<documentation>
+		<annotation> -->
+		<restriction base="string">
+			<pattern value="[A-Za-z0-9 ]+" />
+		</restriction>
+	</simpleType>
+	
+	<simpleType name="T_NSPC_AR_Text">
+<!--  		<annotation>
+			<documentation>Non special Chars text<documentation>
+		<annotation>-->
+		<restriction base="string">
+			<pattern value="[0-9ا-ي ]+" />
+		</restriction>
+	</simpleType>	
+	
+	<simpleType name="T_AnyName">
+<!--		<annotation>
+			<documentation>Free text<documentation>
+		<annotation>-->
+		<restriction base="string" />
+	</simpleType>
+	
+	<simpleType name="T_AnyType">
+<!--		<annotation>
+			<documentation>Free text<documentation>
+		<annotation>-->
+		<restriction base="string" />
+	</simpleType>	
+
+	
+	<simpleType name="T_BaseAmt_PosAmt">
+		<restriction base='decimal'>
+			<minExclusive value="0"></minExclusive>
+			<maxExclusive value="999999999999999"></maxExclusive>
+			<pattern value="[0-9.]{1,15}"/>
+		</restriction>
+	</simpleType>
+	
+	
+	<simpleType name="T_BaseAmt">
+		<restriction base='decimal'>
+			<minInclusive value="0"></minInclusive>
+			<maxInclusive value="999999999999999"></maxInclusive>
+			<pattern value="[0-9.]{1,15}"/>
+		</restriction>
+	</simpleType>
+	
+	<simpleType name="T_InstReptTms">
+		<restriction base='decimal'>
+			<minInclusive value="1"></minInclusive>
+			<maxInclusive value="100"></maxInclusive>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="T_Num">
+		<restriction base="string">
+			<minLength value="1" />
+			<maxLength value="30" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="T_Flag">
+		<restriction base="string">
+			<length value="1" />
+			<pattern value="[yn]{1}" />
+		</restriction>
+	</simpleType>
+
+	<complexType name="T_Amt">
+		<sequence>
+			<element name="Val" type="base:T_BaseAmt_PosAmt" maxOccurs="1"
+				minOccurs="1">
+			</element>
+			<element name="Cur" type="base:T_AccCur" maxOccurs="1"
+				minOccurs="1">
+			</element>
+		</sequence>
+	</complexType>
+
+	<simpleType name="T_BIC">
+		<restriction base="string">
+			<length value="5" />
+			<pattern value="[0-9]+" />
+		</restriction>
+	</simpleType>
+
+
+	<complexType name="T_Benf">
+		<sequence>
+			<element name="IBAN" type="base:T_IBAN" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="BIC" type="base:T_BIC" minOccurs="1"
+				maxOccurs="1">
+			</element>
+			<element name="Name" type="base:T_FullName" minOccurs="1"
+				maxOccurs="1">
+			</element>
+
+		</sequence>
+	</complexType>
+
+	<complexType name="T_AccId">
+		<sequence>
+			<element name="Num" type="base:T_AccountNumber"
+				maxOccurs="1" minOccurs="1">
+			</element>
+			<element name="IBAN" type="base:T_Flag" maxOccurs="1"
+				minOccurs="1">
+			</element>
+			<element name="BIC" type="base:T_BIC" maxOccurs="1"
+				minOccurs="1">
+			</element>
+			
+		</sequence>
+	</complexType>
+	
+	<complexType name="T_Depot">
+		<sequence>
+			<element name="Num" type="base:T_AccountNumber"
+				maxOccurs="1" minOccurs="1">
+			</element>
+			<element name="BIC" type="base:T_BIC" maxOccurs="1"
+				minOccurs="1">
+			</element>
+		</sequence>
+	</complexType>
+	
+    <complexType name="T_ShrsList">
+        <sequence>
+            <element name="ShrInfo" type="base:T_ShrInfo" minOccurs="1" maxOccurs="unbounded"></element>
+        </sequence>
+    </complexType>
+    	
+	<complexType name="T_ShrInfo">
+       <sequence>
+           <element name="CmpnyName" type="base:T_FullName" minOccurs="1" maxOccurs="1"></element>       
+</sequence>
+    </complexType>
+	
+	
+	<complexType name="T_PrdUsrsLis">
+        <sequence>
+            <element name="UsrInfo" type="base:T_UsrInfo" minOccurs="1" maxOccurs="unbounded"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="T_UsrInfo">
+        <sequence>
+            <element name="Id" type="base:T_Id" minOccurs="1" maxOccurs="1"></element>
+            <element name="IdType" type="base:T_PrdctUserIdType" minOccurs="1" maxOccurs="1"></element>
+            <element name="Name" type="base:T_FullName" minOccurs="1" maxOccurs="1"></element>
+            <element name="UsrType" minOccurs="1" maxOccurs="1">
+                <simpleType>
+                    <restriction base="string">
+                        <enumeration value="01" />
+                        <enumeration value="02" />
+                    </restriction>
+                </simpleType>
+            </element>
+        </sequence>
+    </complexType>
+	
+	<complexType name="T_JntAcctsList">
+        <sequence>
+            <element name="JntAccInfo" type="base:T_JntAccInfo" minOccurs="1" maxOccurs="unbounded"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="T_JntAccInfo">
+        <sequence>
+            <element name="AccNum" type="base:T_AccountNumber" minOccurs="1" maxOccurs="1">
+            </element>
+            <element name="IBAN" type="base:T_IBAN" minOccurs="0" maxOccurs="1"></element>
+        </sequence>
+    </complexType>
+    
+    <complexType name="T_JntDepotsList">
+        <sequence>
+            <element name="JntDepotInfo" type="base:T_JntDepotInfo" minOccurs="1" maxOccurs="unbounded"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="T_JntDepotInfo">
+        <sequence>
+           	<element name="DepotNum" minOccurs="1" maxOccurs="1">
+                <simpleType>
+                    <restriction base="base:T_NSPC_Text">
+                        <minLength value="4" />
+                        <maxLength value="24" />
+                    </restriction>
+                </simpleType>
+            </element>
+        </sequence>
+    </complexType>
+
+</schema>

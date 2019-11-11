@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://www.sama.bea.sa/execution/services/RPTransfer"
+	elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:base="http://www.sama.bea.sa/common/BaseLib"
+	xmlns:ex-lib="http://www.sama.bea.sa/execution/services/ExecutionLib"
+	xmlns:ai="http://www.sama.bea.sa/execution/services/RPTransfer">
+	
+	<import namespace="http://www.sama.bea.sa/common/BaseLib"
+		schemaLocation="../../common/BaseLib.xsd" />
+
+	<import
+		namespace="http://www.sama.bea.sa/execution/services/ExecutionLib"
+		schemaLocation="ExecutionLib.xsd" />
+
+	<element name="RPTransferRq" type="ai:T_RPTransferRq"></element>
+
+	<element name="RPTransferRs" type="ai:T_RPTransferRs"></element>
+
+	<complexType name="T_RPTransferRq">
+		<sequence>
+			<element name="Rqstr" type="base:T_Rqstr" minOccurs="1" maxOccurs="1"></element>
+			<element name="InvPrty" type="base:T_RpInvPrty" minOccurs="0" maxOccurs="1"></element>
+			<element name="ThrdPrty" type="base:T_ThrdPrty" minOccurs="0" maxOccurs="1"></element>
+			<element name="Benf" type="base:T_Benf" minOccurs="1" maxOccurs="1"></element>
+			<element name="SrvType" minOccurs="1" maxOccurs="1">
+				<simpleType>
+					<restriction base="string">
+						<length value="2" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="Outline" type="ex-lib:T_RPTransferOutline" minOccurs="1" maxOccurs="1"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="T_RPTransferRs"></complexType>
+
+	<element name="RPTransferCallBackRq" type="ai:T_RPTransferCallBackRq"></element>
+
+	<element name="RPTransferCallBackRs" type="ai:T_RPTransferCallBackRs"></element>
+
+	<complexType name="T_RPTransferCallBackRq">
+		<sequence>
+			<element name="FIRsTransferDtls" type="ai:T_FIRsTransferDtls" minOccurs="1" maxOccurs="1"></element>
+			<element name="TotalAmt" type="base:T_BaseAmt" minOccurs="1" maxOccurs="1"></element>
+		</sequence>
+	</complexType>
+	
+	<complexType name="T_FIRsTransferDtls">
+		<sequence>
+			<element name="FIRsTransferInfo" type="ai:T_FIRsTransferInfo" minOccurs="1" maxOccurs="unbounded"></element>
+		</sequence>
+	</complexType>
+	
+	<complexType name="T_FIRsTransferInfo">
+		<sequence>
+			<element name="FICode" minOccurs="1" maxOccurs="1">
+				<simpleType>
+					<restriction base="string">
+						<length value="5" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="FIRsStatus" minOccurs="1" maxOccurs="1">
+				<simpleType>
+					<restriction base="string">
+						<length value="8" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="CustInfo" type="base:T_CustInfo" minOccurs="0" maxOccurs="1"></element>
+			<element name="XfersList" type="ex-lib:T_ExeXferList" minOccurs="0" maxOccurs="1"></element>
+			<element name="TotalFIAmt" type="base:T_BaseAmt" minOccurs="0" maxOccurs="1"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="T_RPTransferCallBackRs"></complexType>
+
+</schema>

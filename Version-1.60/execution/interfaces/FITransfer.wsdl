@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:fitr="http://www.sama.bea.sa/execution/services/FITransfer"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="FITransfer"
+    targetNamespace="http://www.sama.bea.sa/execution/services/FITransfer" xmlns:gai="http://www.sama.bea.sa/execution/services/FITransfer"
+    xmlns:head="http://www.sama.bea.sa/common/Header">
+
+    <wsdl:types>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:import namespace="http://www.sama.bea.sa/execution/services/FITransfer" schemaLocation="../services/FITransfer.xsd" />
+            <xsd:import namespace="http://www.sama.bea.sa/common/Header" schemaLocation="../../common/Header.xsd" />
+        </xsd:schema>
+    </wsdl:types>
+
+    <wsdl:message name="FITransferRq">
+        <wsdl:part element="gai:FITransferRq" name="parameters" />
+    </wsdl:message>
+    <wsdl:message name="FITransferRs">
+        <wsdl:part element="gai:FITransferRs" name="parameters" />
+    </wsdl:message>
+    <wsdl:message name="RqHdr">
+        <wsdl:part element="head:MsgHdrRq" name="header" />
+    </wsdl:message>
+    <wsdl:message name="RsHdr">
+        <wsdl:part element="head:MsgHdrRs" name="header" />
+    </wsdl:message>
+
+    <wsdl:portType name="FITransfer">
+        <wsdl:operation name="FITransfer">
+            <wsdl:input message="fitr:FITransferRq" />
+            <wsdl:output message="fitr:FITransferRs" />
+        </wsdl:operation>
+    </wsdl:portType>
+    
+    <wsdl:binding name="FITransferSOAP" type="fitr:FITransfer">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+        <wsdl:operation name="FITransfer">
+            <soap:operation soapAction="" />
+            <wsdl:input>
+                <soap:body use="literal" />
+                <soap:header message="fitr:RqHdr" part="header" use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+                <soap:header message="fitr:RsHdr" part="header" use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    
+    <wsdl:service name="FITransfer">
+        <wsdl:port binding="fitr:FITransferSOAP" name="FITransferSOAP">
+            <soap:address location="http://www.sama.bea.sa/" />
+        </wsdl:port>
+    </wsdl:service>
+    
+</wsdl:definitions>

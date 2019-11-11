@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://www.sama.bea.sa/execution/services/FITransfer"
+	elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:base="http://www.sama.bea.sa/common/BaseLib"
+	xmlns:ex-lib="http://www.sama.bea.sa/execution/services/ExecutionLib"
+	xmlns:ai="http://www.sama.bea.sa/execution/services/FITransfer">
+
+	<import namespace="http://www.sama.bea.sa/common/BaseLib"
+		schemaLocation="../../common/BaseLib.xsd" />
+
+	<import
+		namespace="http://www.sama.bea.sa/execution/services/ExecutionLib"
+		schemaLocation="../services/ExecutionLib.xsd" />	
+
+	<element name="FITransferRq" type="ai:T_FITransferRq"></element>
+
+	<element name="FITransferRs" type="ai:T_FITransferRs"></element>
+
+	<complexType name="T_FITransferRq">
+		<sequence>
+			<element name="Rqstr" type="base:T_Rqstr" minOccurs="1" maxOccurs="1"></element>
+			<element name="InvPrty" type="base:T_InvPrty" minOccurs="0" maxOccurs="1"></element>
+			<element name="ThrdPrty" type="base:T_ThrdPrty" minOccurs="0" maxOccurs="1"></element>
+			<element name="Benf" type="base:T_Benf" minOccurs="1" maxOccurs="1"></element>
+			<element name="SrvType" minOccurs="1" maxOccurs="1">
+				<simpleType>
+					<restriction base="string">
+						<length value="2" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="Outline" type="ex-lib:T_FITransferOutline" minOccurs="1" maxOccurs="1"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="T_FITransferRs"></complexType>
+
+	<element name="FITransferCallBackRq" type="ai:T_FITransferCallBackRq"></element>
+
+	<element name="FITransferCallBackRs" type="ai:T_FITransferCallBackRs"></element>
+
+
+	<complexType name="T_FITransferCallBackRq">
+		<sequence>
+			<element name="CustInfo" type="base:T_CustInfo" minOccurs="0" maxOccurs="1"></element>
+			<element name="XfersList" type="ex-lib:T_ExeXferList" minOccurs="0" maxOccurs="1"></element>
+			<element name="TotalAmt" type="base:T_BaseAmt" minOccurs="0" maxOccurs="1"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="T_FITransferCallBackRs"></complexType>
+
+</schema>
