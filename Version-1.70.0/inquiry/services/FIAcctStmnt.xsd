@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://www.sama.bea.sa/inquiry/services/FIAcctStmnt"
+	elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:base="http://www.sama.bea.sa/common/BaseLib"
+	xmlns:ai="http://www.sama.bea.sa/inquiry/services/FIAcctStmnt">
+
+	<import namespace="http://www.sama.bea.sa/common/BaseLib"
+		schemaLocation="../../common/BaseLib.xsd" />	
+
+	<element name="FIAcctStmntRq" type="ai:T_FIAcctStmntRq"></element>
+
+	<element name="FIAcctStmntRs" type="ai:T_FIAcctStmntRs"></element>
+
+	<complexType name="T_FIAcctStmntRq">
+		<sequence>
+			<element name="Rqstr" type="base:T_Rqstr" minOccurs="1" maxOccurs="1"></element>
+			<element name="InvPrty" type="base:T_InvPrty" minOccurs="0" maxOccurs="1"></element>
+			<element name="Outline" type="ai:T_FIAcctStmntOutline" minOccurs="1" maxOccurs="1"></element>
+		</sequence>
+	</complexType>
+	
+	<complexType name="T_FIAcctStmntOutline">
+		<sequence>
+			<element name="AccId" type="base:T_AccId" minOccurs="0" maxOccurs="1"></element>
+			<element name="FinRelType" minOccurs="1" maxOccurs="1">
+				<simpleType>
+					<restriction base="string">
+						<length value="2" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="BondType" minOccurs="0" maxOccurs="1">
+				<simpleType>
+					<restriction base="string">
+						<length value="2" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="DateDuration" type="base:T_Date_Duration" minOccurs="1" maxOccurs="1"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="T_FIAcctStmntRs"></complexType>
+
+	<element name="FIAcctStmntCallBackRq" type="ai:T_FIAcctStmntCallBackRq"></element>
+
+	<element name="FIAcctStmntCallBackRs" type="ai:T_FIAcctStmntCallBackRs"></element>
+
+
+	<complexType name="T_FIAcctStmntCallBackRq">
+		<sequence>
+			<element name="CustInfo" type="base:T_CustInfo" minOccurs="0" maxOccurs="1"></element>
+			<element name="PrdUsrsList" type="base:T_PrdUsrsLis" minOccurs="0" maxOccurs="1"></element>
+			<element name="IdAcctRel" minOccurs="1" maxOccurs="1">
+				<simpleType>
+					<restriction base="string">
+						<length value="2" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="AcctSumryInfoList" type="base:T_AcctSumryInfoList" minOccurs="0" maxOccurs="1"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="T_FIAcctStmntCallBackRs"></complexType>
+
+</schema>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://www.sama.bea.sa/inquiry/services/RPAcctStmnt"
+	elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:base="http://www.sama.bea.sa/common/BaseLib" 
+	xmlns:ai="http://www.sama.bea.sa/inquiry/services/RPAcctStmnt">
+	
+	<import namespace="http://www.sama.bea.sa/common/BaseLib"
+		schemaLocation="../../common/BaseLib.xsd" />
+
+	<element name="RPAcctStmntRq" type="ai:T_RPAcctStmntRq"></element>
+
+	<element name="RPAcctStmntRs" type="ai:T_RPAcctStmntRs"></element>
+
+	<complexType name="T_RPAcctStmntRq">
+		<sequence>
+			<element name="Rqstr" type="base:T_Rqstr" minOccurs="1" maxOccurs="1"></element>
+			<element name="InvPrty" type="base:T_InvPrty" minOccurs="0" maxOccurs="1"></element>
+			<element name="Outline" type="ai:T_RPAcctStmntOutline" minOccurs="1" maxOccurs="1"></element>
+			<element name="FinInst" type="base:T_FinInst" minOccurs="0" maxOccurs="1"></element>
+		</sequence>
+	</complexType>
+	
+	<complexType name="T_RPAcctStmntOutline">
+		<sequence>
+			<element name="AccId" type="base:T_AccId" minOccurs="0" maxOccurs="1"></element>
+			<element name="FinRelType" minOccurs="1" maxOccurs="1">
+				<simpleType>
+					<restriction base="string">
+						<length value="2" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="BondType" minOccurs="0" maxOccurs="1">
+				<simpleType>
+					<restriction base="string">
+						<length value="2" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="DateDuration" type="base:T_Date_Duration" minOccurs="1" maxOccurs="1"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="T_RPAcctStmntRs"></complexType>
+
+	<element name="RPAcctStmntCallBackRq" type="ai:T_RPAcctStmntCallBackRq"></element>
+
+	<element name="RPAcctStmntCallBackRs" type="ai:T_RPAcctStmntCallBackRs"></element>
+
+	<complexType name="T_RPAcctStmntCallBackRq">
+		<sequence>
+			<element name="FIRsAcctStmntDtls" type="ai:T_FIRsAcctStmntDtls" minOccurs="0" maxOccurs="1"></element>
+		</sequence>
+	</complexType>
+	
+	<complexType name="T_FIRsAcctStmntDtls">
+		<sequence>
+			<element name="FIRsAcctStmntInfo" type="ai:T_FIRsAcctStmntInfo" minOccurs="1" maxOccurs="unbounded"></element>
+		</sequence>
+	</complexType>
+	
+	<complexType name="T_FIRsAcctStmntInfo">
+		<sequence>
+			<element name="FICode" minOccurs="1" maxOccurs="1">
+				<simpleType>
+					<restriction base="string">
+						<length value="5" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="FIRsStatus" minOccurs="1" maxOccurs="1">
+				<simpleType>
+					<restriction base="string">
+						<length value="8" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="CustInfo" type="base:T_CustInfo" minOccurs="0" maxOccurs="1"></element>
+			<element name="PrdUsrsList" type="base:T_PrdUsrsLis" minOccurs="0" maxOccurs="1"></element>
+			<element name="IdAcctRel" minOccurs="1" maxOccurs="1">
+				<simpleType>
+					<restriction base="string">
+						<length value="2" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="AcctSumryInfoList" type="base:T_AcctSumryInfoList" minOccurs="0" maxOccurs="1"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="T_RPAcctStmntCallBackRs"></complexType>
+
+</schema>

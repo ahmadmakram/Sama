@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:fitr="http://www.sama.bea.sa/inquiry/services/FIAcctStmntCallBack"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="RPLiftCallBack"
+    targetNamespace="http://www.sama.bea.sa/inquiry/services/FIAcctStmntCallBack" xmlns:gs-ai="http://www.sama.bea.sa/inquiry/services/FIAcctStmnt"
+    xmlns:head="http://www.sama.bea.sa/common/Header">
+
+    <wsdl:types>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+             <xsd:import namespace="http://www.sama.bea.sa/inquiry/services/FIAcctStmnt" schemaLocation="../services/FIAcctStmnt.xsd" />
+            <xsd:import namespace="http://www.sama.bea.sa/common/Header" schemaLocation="../../common/Header.xsd" />
+        </xsd:schema>
+    </wsdl:types>
+
+    <wsdl:message name="FIAcctStmntCallBackRq">
+        <wsdl:part element="gs-ai:FIAcctStmntCallBackRq" name="parameters" />
+    </wsdl:message>
+    <wsdl:message name="FIAcctStmntCallBackRs">
+        <wsdl:part element="gs-ai:FIAcctStmntCallBackRs" name="parameters" />
+    </wsdl:message>
+    <wsdl:message name="RqHdr">
+        <wsdl:part element="head:MsgHdrRq" name="header" />
+    </wsdl:message>
+    <wsdl:message name="RsHdr">
+        <wsdl:part element="head:MsgHdrRs" name="header" />
+    </wsdl:message>
+
+    <wsdl:portType name="FIAcctStmntCallBack">
+        <wsdl:operation name="FIAcctStmntCallBack">
+            <wsdl:input message="fitr:FIAcctStmntCallBackRq" />
+            <wsdl:output message="fitr:FIAcctStmntCallBackRs" />
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <wsdl:binding name="FIAcctStmntCallBackSOAP" type="fitr:FIAcctStmntCallBack">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+        <wsdl:operation name="FIAcctStmntCallBack">
+            <soap:operation soapAction="http://www.sama.bea.sa/inquiry/services/FIAcctStmntCallBack/FIAcctStmntCallBack" />
+            <wsdl:input>
+                <soap:body use="literal" />
+                <soap:header message="fitr:RqHdr" part="header" use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+                <soap:header message="fitr:RsHdr" part="header" use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:service name="FIAcctStmntCallBack">
+        <wsdl:port binding="fitr:FIAcctStmntCallBackSOAP" name="FIAcctStmntCallBackSOAP">
+            <soap:address location="http://www.sama.bea.sa/" />
+        </wsdl:port>
+    </wsdl:service>
+
+</wsdl:definitions>

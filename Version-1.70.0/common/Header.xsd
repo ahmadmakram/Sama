@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://www.sama.bea.sa/common/Header" elementFormDefault="qualified"
+    xmlns="http://www.w3.org/2001/XMLSchema" xmlns:base="http://www.sama.bea.sa/common/BaseLib" xmlns:header="http://www.sama.bea.sa/common/Header">
+
+    <import schemaLocation="BaseLib.xsd" namespace="http://www.sama.bea.sa/common/BaseLib" />
+
+    <element name="MsgHdrRq" type="header:T_RqHdr"></element>
+    <element name="MsgHdrRs" type="header:T_RsHdr"></element>
+
+    <complexType name="T_RqHdr">
+        <sequence>
+            <element name="PID" minOccurs="1" maxOccurs="1">
+                <simpleType>
+                    <restriction base="string">
+                        <length value="5" />
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="Sys" minOccurs="0" maxOccurs="1">
+                <simpleType>
+                    <restriction base="string">
+                        <enumeration value="GOV Portal" />
+                        <enumeration value="FI Portal" />
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="MsgDtTm" type="base:T_MsgDtTm" minOccurs="1" maxOccurs="1">
+            </element>
+            <element name="ChID" type="base:T_ChID" minOccurs="1" maxOccurs="1">
+            </element>
+			
+            <element name="MsgUID" type="base:T_CRN" minOccurs="1" maxOccurs="1">
+			</element>
+			
+			<element name="OvrdMsgUID" type="base:T_CRN" minOccurs="0" maxOccurs="1"></element>
+
+            <element name="SRN" minOccurs="0" maxOccurs="1">
+                <simpleType>
+                    <restriction base="string">
+                        <minLength value="5" />
+                        <maxLength value="50" />
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="Cnfd" minOccurs="0" maxOccurs="1">
+                <simpleType>
+                    <restriction base="string">
+                        <enumeration value="0" />
+                        <enumeration value="1" />
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="Mod" minOccurs="0" maxOccurs="1">
+                <simpleType>
+                    <restriction base="string">
+                        <enumeration value="0" />
+                        <enumeration value="1" />
+                        <enumeration value="2" />
+                        <enumeration value="3" />
+                        <enumeration value="-1" />
+                        <enumeration value="-2" />
+                        <enumeration value="-3" />
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="CRN" type="base:T_CRN" minOccurs="0" maxOccurs="1"></element>
+
+            <element name="Clsf" minOccurs="0" maxOccurs="1">
+                <simpleType>
+                    <restriction base="string">
+                        <enumeration value="R1" />
+                        <enumeration value="R2" />
+                        <enumeration value="R3" />
+                        <enumeration value="R4" />
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="pHash" minOccurs="0" maxOccurs="1">
+                <simpleType>
+                    <restriction base="string">
+                        <minLength value="0" />
+                        <maxLength value="128" />
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="IPAdrs" minOccurs="0" maxOccurs="1">
+                <simpleType>
+                    <restriction base="string">
+                        <minLength value="0" />
+                       <pattern value="[0-9]{3}.[0-9]{3}.[0-9]{1,3}.[0-9]{1,3}" />
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="Status" type="base:T_StatusCode" maxOccurs="1" minOccurs="0"/>
+			
+			 <element name="Note" minOccurs="0" maxOccurs="1">
+                <simpleType>
+                    <restriction base="string">
+                        <minLength value="10" />
+                        <maxLength value="250" />
+                    </restriction>
+                </simpleType>
+            </element>
+			
+			
+			<element name="Info" type="base:T_Attributes" maxOccurs="1" minOccurs="0"/>
+        </sequence>
+    </complexType>
+
+    <complexType name="T_RsHdr">
+        <sequence>
+        	<element name="PID" minOccurs="1" maxOccurs="1">
+                <simpleType>
+                    <restriction base="string">
+                        <length value="5" />
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="Status" type="base:T_StatusCode" minOccurs="1" maxOccurs="1">
+            </element>
+            <element name="MsgDtTm" type="base:T_MsgDtTm" minOccurs="1" maxOccurs="1">
+            </element>
+            <element name="SRN" minOccurs="0" maxOccurs="1">
+                <simpleType>
+                    <restriction base="string">
+                        <minLength value="5" />
+                        <maxLength value="50" />
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="CRN" type="base:T_CRN" minOccurs="1" maxOccurs="1">
+            </element>
+			<element name="Info" type="base:T_Attributes" maxOccurs="1" minOccurs="0"/>
+        </sequence>
+    </complexType>
+
+</schema>

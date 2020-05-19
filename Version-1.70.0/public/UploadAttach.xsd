@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://www.sama.bea.sa/public/services/UploadAttach"
+	elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:base="http://www.sama.bea.sa/common/BaseLib"
+	xmlns:uatt="http://www.sama.bea.sa/public/services/UploadAttach">
+
+	<import namespace="http://www.sama.bea.sa/common/BaseLib"
+		schemaLocation="../common/BaseLib.xsd" />	
+
+	<element name="UploadAttachRq" type="uatt:T_UploadAttachRq"></element>
+
+	<element name="UploadAttachRs" type="uatt:T_UploadAttachRs"></element>
+
+	<complexType name="T_UploadAttachRq">
+		<sequence>
+			<element name="Attachment" type="base:T_Attachment" minOccurs="1" maxOccurs="1"></element>
+		</sequence>
+	</complexType>
+		
+	<complexType name="T_UploadAttachRs">
+		<sequence>	
+			<element name="DocumentId" minOccurs="1" maxOccurs="1">
+				<simpleType>
+					<restriction base="string"/>
+				</simpleType>
+			</element>
+		</sequence>
+	</complexType>
+	
+	<element name="UploadAttachCallBackRq" type="uatt:T_UploadAttachCallBackRq"></element>
+
+	<element name="UploadAttachCallBackRs" type="uatt:T_UploadAttachCallBackRs"></element>
+
+	<complexType name="T_UploadAttachCallBackRq">
+		<sequence>	
+			<element name="RefName" minOccurs="1" maxOccurs="1">
+				<simpleType>
+					<restriction base="string"/>
+				</simpleType>
+			</element>
+		</sequence>
+	</complexType>
+
+	<complexType name="T_UploadAttachCallBackRs"></complexType>
+</schema>
